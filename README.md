@@ -5,6 +5,6 @@
 	- sqlalchemy - db queries and schema
 	- pandas - moving data around mostly
 
-plotly
-react
-flask
+- plotly
+- react
+- flask

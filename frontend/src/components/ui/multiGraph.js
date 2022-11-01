@@ -14,7 +14,6 @@ const graph_v2 = {
             marker: {color: 'red'},
         }
 
-
 function MultiGraph(){
     return (
         <div className="background">

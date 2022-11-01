@@ -26,6 +26,7 @@ def returnData():
 @app.route('/populategraph', methods=['POST'])
 def funnyGuy():
     response = int(request.get_json(force=True)['graph_amount'])
+    return response
 
 
 if __name__ == '__main__':

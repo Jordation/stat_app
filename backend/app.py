@@ -2,7 +2,7 @@ from flask import Flask, jsonify
 from flask import request
 from flask_cors import CORS
 from static.myScripts.match_unpacker import unpackAndJSON
-from static.myScripts.match_object import ScrapeMatch
+from static.myScripts.match_object import ScrapeOBJ
 from static.myScripts.queryTesting.queries import stmttest
 
 app = Flask(__name__)

@@ -30,15 +30,10 @@ def stackFrames(stacked_frames):
 # hello jordan of another day, you may want to leave this as individual series or split the maps into their own dfs
 # to later be spat into your sqlite db where you can iterate over it as nessesary 
 
-
-# def returnDF(*args):
-#     links = getLinks(list(args))
-#     matches = [ScrapeMatch(x).match for x in links]
-#     frames = []
-#     for match in matches:
-#         frames.extend(unpackMatch(match))
-#     return_dataframe = stackFrames(frames)
-#     return return_dataframe
+# last time the note to future me was great, so here's another
+# when(if) i implement riot api i can  use pandas features to do most of the formatting of my data since
+# I can look at it round by round.
+# So, it'll be worth learning in greater depth :)
 
 
 def unpackAndJSON(match_object):

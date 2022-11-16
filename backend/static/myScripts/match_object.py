@@ -1,4 +1,3 @@
-
 from bs4 import BeautifulSoup
 import requests
 from dataclasses import dataclass, field
@@ -45,7 +44,7 @@ def nlk(x):
     return [y for y in x if y != '\n']
 
 
-class ScrapeMatch:
+class ScrapeOBJ:
     def __init__(self, url):
         self.rdy_data = SoupsPrepare(url).cleaned_data
         self.match = Match(self.rdy_data)
@@ -80,13 +79,18 @@ class SoupsPrepare:
             def aggregateForPlayer(row):
                 player_N_team_data = [text for text in row("td", class_="mod-player")[0].stripped_strings]
                 agent = row("td", class_="mod-agents")[0].img.attrs['title']
-                stat_nums = [str(x).split(">", 1)[1].split("<", 1)[0] for x in row("span", class_="mod-both")]
-                stat_nums.pop(4)
-                stat_nums.pop(9)
-                ret_list = [player_N_team_data[0], player_N_team_data[1], agent]
-                ret_list.extend(stat_nums)
-                return ret_list
-#
+                stat_nums_atk = [str(x).split(">", 1)[1].split("<", 1)[0] for x in row("span", class_="mod-t")]
+                stat_nums_def = [str(x).split(">", 1)[1].split("<", 1)[0] for x in row("span", class_="mod-ct")]
+                stat_nums_atk.pop(4)
+                stat_nums_atk.pop(9)
+                stat_nums_def.pop(4)
+                stat_nums_def.pop(9)
+                atk_full = [player_N_team_data[0], player_N_team_data[1], agent]
+                def_full = [player_N_team_data[0], player_N_team_data[1], agent]
+                atk_full.extend(stat_nums_atk)
+                def_full.extend(stat_nums_def)
+                return [atk_full, def_full]
+
             stat_rows = soup_plyrs("tr")
             stat_rows.pop(0)
             stat_rows.pop(5)
@@ -141,15 +145,22 @@ class Map:
 
     @property
     def team_1_stats(self):
-        if len(self.data_list) > 10:
+        if len(self.data_list[0]) > 10:
             raise Exception("Not Configured for > or < 5 a side currently.")
-        return [Player({key: x[i] for i, key in enumerate(CATEGORIES_PLAYERS)}) for x in self.data_list[:5]]
+        working = self.data_list[:5]
+        atk_stat = [Player({key: x[0][i] for i, key in enumerate(CATEGORIES_PLAYERS)}) for x in working]
+        def_stat = [Player({key: x[1][i] for i, key in enumerate(CATEGORIES_PLAYERS)}) for x in working]
+        return {"atk_stats": atk_stat, "def_stats": def_stat}
 
     @property
     def team_2_stats(self):
-        if len(self.data_list) > 10:
+        if len(self.data_list[0]) > 10:
             raise Exception("Not Configured for > or < 5 a side currently.")
-        return [Player({key: x[i] for i, key in enumerate(CATEGORIES_PLAYERS)}) for x in self.data_list[5:]]
+        working = self.data_list[5:]
+        atk_stat = [Player({key: x[0][i] for i, key in enumerate(CATEGORIES_PLAYERS)}) for x in working]
+        def_stat = [Player({key: x[1][i] for i, key in enumerate(CATEGORIES_PLAYERS)}) for x in working]
+        return {"atk_stats": atk_stat, "def_stats": def_stat}
+
 
 
 @dataclass

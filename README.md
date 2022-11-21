@@ -9,8 +9,9 @@
 - react
 - flask
 
-## tools i want to try
+## things i want to try
 
 - svelte
 	- svelte graphing package 
 - not using CRA
+- typescript

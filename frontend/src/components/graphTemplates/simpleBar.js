@@ -5,7 +5,7 @@ function SimpleBar(props){
     return (
       <Plot
         data={[props.specs]}
-        layout={ {width: 320, height: 240, title: 'A Fancy Plot'} }
+        layout={ {width: 800, height: 350, title: 'da plot'} }
       />
     );
   }

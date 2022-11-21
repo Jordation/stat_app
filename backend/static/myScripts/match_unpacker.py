@@ -1,7 +1,7 @@
 from match_object import ScrapeOBJ
 import pandas as pd
 
-URL = "https://www.vlr.gg/157703/team-heretics-vs-bleed-valorant-india-invitational-by-galaxy-racer-sf/?game=104329&tab=overview"
+# URL = "https://www.vlr.gg/157703/team-heretics-vs-bleed-valorant-india-invitational-by-galaxy-racer-sf/?game=104329&tab=overview"
 
 
 def unpackMatch(matchOBJ):

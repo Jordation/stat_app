@@ -1,10 +1,12 @@
 from sqlalchemy import Column, create_engine, ForeignKey, Integer, String, ForeignKey, select
 from sqlalchemy.orm import declarative_base, relationship, Session
 
+# this is for accepting an entire tournament of data into the real end user-quereyable db, not for prod
+
 #
 # START SETUP
 #
-ENGINE = create_engine(r"sqlite:///static\myScripts\queryTesting\made_up_data.db", echo=True, future=True)
+ENGINE = create_engine(r"sqlite:///static\myScripts\queryTesting\real_data_test.db", echo=True, future=True)
 BASE = declarative_base()
 
 
@@ -12,7 +14,7 @@ class TBL_Tourney(BASE):
     __tablename__ = "tournaments"
     id = Column(Integer, primary_key=True)
     tournament = Column(String(64))
-    
+
     matches_played = relationship("TBL_Match", back_populates="tournament")
 
     def __repr__(self) -> str:
@@ -21,7 +23,7 @@ class TBL_Tourney(BASE):
 
 class TBL_Match(BASE):
     __tablename__ = "matches_played"
-    id = Column(Integer, primary_key=True) 
+    id = Column(Integer, primary_key=True)
     tournament_id = Column(Integer, ForeignKey("tournaments.id"))
     matchname = Column(String(64))
 
@@ -37,7 +39,7 @@ class TBL_Map(BASE):
     id = Column(Integer, primary_key=True)
     match_id = Column(Integer, ForeignKey("matches_played.id"))
     mapname = Column(String(20))
-    
+
     match = relationship("TBL_Match", back_populates="maps_played")
     player_stats = relationship("TBL_Stat", back_populates="map_")
 
@@ -49,11 +51,14 @@ class TBL_Stat(BASE):
     __tablename__ = "player_stats"
     id = Column(Integer, primary_key=True)
     map_id = Column(Integer, ForeignKey("maps_played.id"))
-    name = Column(String(20))
+
+    name = Column(String(32))
+    team = Column(String(32))
+    acs = Column(String(32))
     k = Column(Integer)
     d = Column(Integer)
     a = Column(Integer)
-    
+
     map_ = relationship("TBL_Map", back_populates="player_stats")
 
     def __repr__(self):
@@ -61,3 +66,11 @@ class TBL_Stat(BASE):
 
 
 BASE.metadata.create_all(ENGINE)
+
+
+def main():
+    pass
+
+
+if __name__ == "__main__":
+    main()

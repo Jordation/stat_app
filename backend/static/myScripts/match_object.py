@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 from dataclasses import dataclass, field
 
-CATEGORIES_PLAYERS = ['Player', 'Team', 'Agent', 'ACS',
+CATEGORIES_PLAYERS = ['Player', 'Agent', 'ACS',
                       'Kills', 'Deaths', 'Assists', 'KAST',
                       'ADR', 'Headshot %', 'First Bloods',
                       'First deaths']
@@ -77,7 +77,7 @@ class SoupsPrepare:
 
         def splitPlayerStats(soup_plyrs):
             def aggregateForPlayer(row):
-                player_N_team_data = [text for text in row("td", class_="mod-player")[0].stripped_strings]
+                player_name = [text for text in row("td", class_="mod-player")[0].stripped_strings][0]
                 agent = row("td", class_="mod-agents")[0].img.attrs['title']
                 stat_nums_atk = [str(x).split(">", 1)[1].split("<", 1)[0] for x in row("span", class_="mod-t")]
                 stat_nums_def = [str(x).split(">", 1)[1].split("<", 1)[0] for x in row("span", class_="mod-ct")]
@@ -85,8 +85,8 @@ class SoupsPrepare:
                 stat_nums_atk.pop(9)
                 stat_nums_def.pop(4)
                 stat_nums_def.pop(9)
-                atk_full = [player_N_team_data[0], player_N_team_data[1], agent]
-                def_full = [player_N_team_data[0], player_N_team_data[1], agent]
+                atk_full = [player_name, agent]
+                def_full = [player_name, agent]
                 atk_full.extend(stat_nums_atk)
                 def_full.extend(stat_nums_def)
                 return [atk_full, def_full]
@@ -130,6 +130,23 @@ class Match:
         return {key: self.data_list[0][i] for i, key in enumerate(CATEGORIES_MATCH)}
 
 
+def ensureTypes(dicts):
+    def doEnsure(data_dict):
+        data_dict['ACS'] = int(data_dict['ACS'])
+        data_dict['Kills'] = int(data_dict['Kills'])
+        data_dict['Deaths'] = int(data_dict['Deaths'])
+        data_dict['Assists'] = int(data_dict['Assists'])
+        data_dict['ADR'] = int(data_dict['ADR'])
+        data_dict['First Bloods'] = int(data_dict['First Bloods'])
+        data_dict['First deaths'] = int(data_dict['First deaths'])
+
+        data_dict['KAST'] = int(data_dict['KAST'].split('%')[0])
+        data_dict['Headshot %'] = int(data_dict['Headshot %'].split('%')[0])
+        return data_dict
+    for eaDict in dicts:
+        eaDict = doEnsure(eaDict.stats)
+    return dicts
+
 @dataclass
 class Map:
     data_list: list = field(default_factory=list)
@@ -150,7 +167,7 @@ class Map:
         working = self.data_list[:5]
         atk_stat = [Player({key: x[0][i] for i, key in enumerate(CATEGORIES_PLAYERS)}) for x in working]
         def_stat = [Player({key: x[1][i] for i, key in enumerate(CATEGORIES_PLAYERS)}) for x in working]
-        return {"atk_stats": atk_stat, "def_stats": def_stat}
+        return {"atk_stats": ensureTypes(atk_stat), "def_stats": ensureTypes(def_stat)}
 
     @property
     def team_2_stats(self):
@@ -159,7 +176,7 @@ class Map:
         working = self.data_list[5:]
         atk_stat = [Player({key: x[0][i] for i, key in enumerate(CATEGORIES_PLAYERS)}) for x in working]
         def_stat = [Player({key: x[1][i] for i, key in enumerate(CATEGORIES_PLAYERS)}) for x in working]
-        return {"atk_stats": atk_stat, "def_stats": def_stat}
+        return {"atk_stats": ensureTypes(atk_stat), "def_stats": ensureTypes(def_stat)}
 
 
 

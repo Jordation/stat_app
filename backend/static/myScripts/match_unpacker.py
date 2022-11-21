@@ -1,5 +1,7 @@
-# from match_object import ScrapeMatch
+from match_object import ScrapeOBJ
 import pandas as pd
+
+URL = "https://www.vlr.gg/157703/team-heretics-vs-bleed-valorant-india-invitational-by-galaxy-racer-sf/?game=104329&tab=overview"
 
 
 def unpackMatch(matchOBJ):
@@ -40,3 +42,15 @@ def unpackAndJSON(match_object):
     frames = unpackMatch(match_object)
     df = stackFrames(frames)
     return df.to_json(orient="table")
+
+
+
+
+def main():
+    data_set = ScrapeOBJ(URL).match
+
+    pass
+
+
+if __name__ == '__main__':
+    main()

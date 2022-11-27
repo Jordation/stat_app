@@ -1,6 +1,6 @@
 import pandas as pd
-# from match_object import ScrapeOBJ
-from static.myScripts.match_object import ScrapeOBJ
+from match_object import ScrapeOBJ
+# from static.myScripts.match_object import ScrapeOBJ
 
 URL = "https://www.vlr.gg/130685/loud-vs-optic-gaming-valorant-champions-2022-gf"
 
@@ -37,7 +37,9 @@ def createToken(url):
     new_token['data']['match_data'] = {
         "event": dataOBJ.matchData["Event Title"],
         "series": dataOBJ.matchData["Series"],
-        "bestof": dataOBJ.matchData["Best Of"]
+        "bestof": dataOBJ.matchData["Best Of"],
+        "winner": dataOBJ.matchWinner,
+        "maps_played": len(dataOBJ.mapsPlayed)
     }
 
     for i in range(1, len(dataOBJ.maps) + 1):

@@ -3,7 +3,6 @@ from statistics import median
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker, Session
 from .my_tables import TBL_Tourney, TBL_Match, TBL_Map, TBL_Stat
-import math
 
 ENGINE = create_engine(r"sqlite:///static\myScripts\queryTesting\made_up_data.db", echo=True, future=True)
 MAPS = ["Ascent", "Haven", "Icebox", "Breeze", "Pearl", "Bind", "Fracture"]

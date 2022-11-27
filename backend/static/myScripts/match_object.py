@@ -7,7 +7,11 @@ CATEGORIES_PLAYERS = ['Player', 'Agent', 'ACS',
                       'ADR', 'Headshot %', 'First Bloods',
                       'First deaths']
 CATEGORIES_MAP = ['Map', 'Team 1 Stats', 'Team 2 Stats']
-
+SHOULD_BE_INT = ['ACS', 'Kills', 'Deaths', 'Assists', 'ADR', 'First Bloods', 'First deaths', 'KAST', 'Headshot %']
+# i understand objects way better now lmao idk why they are data classes
+# rebuild this to just call methods which set the self.value .
+#
+#
 # this list is used to iterate against header_text indicies to pull the data I want,
 # will have to change if the structure of this changes in their html
 # MATCH_DATA_IND = [
@@ -39,6 +43,14 @@ PICK_BAN_FORMAT_BO5 = ['T1 B1', 'T2 B1',
 
 LINK_IN = 'https://www.vlr.gg/130685/loud-vs-optic-gaming-valorant-champions-2022-gf'
 
+# helper func because final map in series doesnt contain pick data (last remaining)
+# so final map picks up match run time in string
+def fixMapList(maps):
+    for x in range(len(maps)):
+        for i in maps[x]:
+            if i.isnumeric():
+                maps[x] = maps[x].split(i)[0]
+    return maps
 
 def nlk(x):
     return [y for y in x if y != '\n']
@@ -76,6 +88,11 @@ class SoupsPrepare:
             return team_names[0], team_names[1], scores_bestof[0], scores_bestof[1], event, series, scores_bestof[2]
 
         def splitPlayerStats(soup_plyrs):
+            def checkforstupidshit(a, d):
+                atk_fixed = [x.replace(u'\xa0', u'0') for x in a]
+                def_fixed = [x.replace(u'\xa0', u'0') for x in d]
+                return atk_fixed, def_fixed
+
             def aggregateForPlayer(row):
                 player_name = [text for text in row("td", class_="mod-player")[0].stripped_strings][0]
                 agent = row("td", class_="mod-agents")[0].img.attrs['title']
@@ -89,7 +106,7 @@ class SoupsPrepare:
                 def_full = [player_name, agent]
                 atk_full.extend(stat_nums_atk)
                 def_full.extend(stat_nums_def)
-                return [atk_full, def_full]
+                return checkforstupidshit(atk_full, def_full)
 
             stat_rows = soup_plyrs("tr")
             stat_rows.pop(0)
@@ -108,6 +125,7 @@ class SoupsPrepare:
         match_data = splitHeaderData(match_header)
         # other stat blocks in map list shit
         maps_list = [x[0].contents[3].text.split("PICK")[0].replace("\t", "").replace("\n", "") for x in map_data]
+        maps_list = fixMapList(maps_list)
         rounds_won = [(findRoundScore(x[0].contents[1]), findRoundScore(x[0].contents[5])) for x in map_data]
         scores = [{"Team 1": [match_data[0], x[0][0]], "Team 2": [match_data[1], x[1][2]]} for x in rounds_won]
         return [match_data, maps_list, scores, player_stats]
@@ -129,6 +147,12 @@ class Match:
     def matchData(self):
         return {key: self.data_list[0][i] for i, key in enumerate(CATEGORIES_MATCH)}
 
+    @property
+    def matchWinner(self):
+        if int(self.matchData['Team 1 Maps W']) > int(self.matchData['Team 2 Maps W']):
+            return self.matchData['Team 1']
+        else:
+            return self.matchData['Team 2']
 
 def ensureTypes(dicts):
     def doEnsure(data_dict):
@@ -139,7 +163,6 @@ def ensureTypes(dicts):
         data_dict['ADR'] = int(data_dict['ADR'])
         data_dict['First Bloods'] = int(data_dict['First Bloods'])
         data_dict['First deaths'] = int(data_dict['First deaths'])
-
         data_dict['KAST'] = int(data_dict['KAST'].split('%')[0])
         data_dict['Headshot %'] = int(data_dict['Headshot %'].split('%')[0])
         return data_dict

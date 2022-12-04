@@ -98,8 +98,10 @@ class SoupsPrepare:
                 agent = row("td", class_="mod-agents")[0].img.attrs['title']
                 stat_nums_atk = [str(x).split(">", 1)[1].split("<", 1)[0] for x in row("span", class_="mod-t")]
                 stat_nums_def = [str(x).split(">", 1)[1].split("<", 1)[0] for x in row("span", class_="mod-ct")]
+                stat_nums_atk.pop(0)
                 stat_nums_atk.pop(4)
                 stat_nums_atk.pop(9)
+                stat_nums_def.pop(0)
                 stat_nums_def.pop(4)
                 stat_nums_def.pop(9)
                 atk_full = [player_name, agent]

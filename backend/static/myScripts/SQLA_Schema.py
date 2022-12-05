@@ -35,18 +35,33 @@ class TBL_Match(base):
 class TBL_Map(base):
     __tablename__ = "maps_played"
     id = Column(Integer, primary_key=True)
-    mapname = Column(String(16))
+    mapname = Column(String(16), nullable=False)
     team1 = Column(String(32))
     team2 = Column(String(32))
     winner = Column(String(32))
 
     match_id = Column(Integer, ForeignKey("matches_played.id"))
-    match = relationship("TBL_Match", back_populates="maps_played")
+    match = relationship("TBL_Match",
+                         back_populates="maps_played")
 
-    player_stats_combined = relationship("TBL_Stats", back_populates="from_map")
-    player_stats_defence = relationship("TBL_Stats_DEF", back_populates="from_map")
-    player_stats_attack = relationship("TBL_Stats_ATK", back_populates="from_map")
-
+    player_stats_combined = relationship("TBL_Stats",
+                                         back_populates="map_id_link",
+                                         foreign_keys='TBL_Stats.map_id')
+    player_stats_defence = relationship("TBL_Stats_DEF",
+                                        back_populates="map_id_link",
+                                        foreign_keys='TBL_Stats_DEF.map_id')
+    player_stats_attack = relationship("TBL_Stats_ATK",
+                                       back_populates="map_id_link",
+                                       foreign_keys='TBL_Stats_ATK.map_id')
+    comb_map = relationship("TBL_Stats",
+                            back_populates="map_name_link",
+                            foreign_keys='TBL_Stats.mapname')
+    def_map = relationship("TBL_Stats_DEF",
+                           back_populates="map_name_link",
+                           foreign_keys='TBL_Stats_DEF.mapname')
+    atk_map = relationship("TBL_Stats_ATK",
+                           back_populates="map_name_link",
+                           foreign_keys='TBL_Stats_ATK.mapname')
 
     def __repr__(self):
         return f"{self.team1=}, {self.team2=}, {self.match=}, {self.mapname=}, {self.id=}, {self.match_id=}"
@@ -69,7 +84,13 @@ class TBL_Stats(base):
     fd = Column(Integer)
 
     map_id = Column(Integer, ForeignKey("maps_played.id"))
-    from_map = relationship("TBL_Map", back_populates="player_stats_combined")
+    map_id_link = relationship("TBL_Map",
+                               back_populates="player_stats_combined",
+                               foreign_keys='TBL_Stats.map_id')
+    mapname = Column(String(16), ForeignKey("maps_played.mapname"))
+    map_name_link = relationship("TBL_Map",
+                                 back_populates="comb_map",
+                                 foreign_keys='TBL_Stats.mapname')
 
     def __repr__(self):
         return f"{self.player=}, {self.agent=}, {self.team=}"
@@ -92,7 +113,13 @@ class TBL_Stats_DEF(base):
     fd = Column(Integer)
 
     map_id = Column(Integer, ForeignKey("maps_played.id"))
-    from_map = relationship("TBL_Map", back_populates="player_stats_defence")
+    map_id_link = relationship("TBL_Map",
+                               back_populates="player_stats_defence",
+                               foreign_keys='TBL_Stats_DEF.map_id')
+    mapname = Column(String(16), ForeignKey("maps_played.mapname"))
+    map_name_link = relationship("TBL_Map",
+                                 back_populates="def_map",
+                                 foreign_keys='TBL_Stats_DEF.mapname')
 
     def __repr__(self):
         return f"{self.player=}, {self.agent=}, {self.team=}"
@@ -114,7 +141,13 @@ class TBL_Stats_ATK(base):
     fd = Column(Integer)
 
     map_id = Column(Integer, ForeignKey("maps_played.id"))
-    from_map = relationship("TBL_Map", back_populates="player_stats_attack")
+    map_id_link = relationship("TBL_Map",
+                               back_populates="player_stats_attack",
+                               foreign_keys='TBL_Stats_ATK.map_id')
+    mapname = Column(String(16), ForeignKey("maps_played.mapname"))
+    map_name_link = relationship("TBL_Map",
+                                 back_populates="atk_map",
+                                 foreign_keys='TBL_Stats_ATK.mapname')
 
     def __repr__(self):
         return f"{self.player=}, {self.agent=}, {self.team=}"

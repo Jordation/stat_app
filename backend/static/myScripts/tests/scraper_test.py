@@ -1,9 +1,13 @@
 from match_object import ScrapeOBJ
-
+from event_scraper import rizzLinks
 
 def main():
-    URL = "https://www.vlr.gg/130685/loud-vs-optic-gaming-valorant-champions-2022-gf"
-    data = ScrapeOBJ(URL).match
+    URL = "https://www.vlr.gg/event/matches/353/valorant-champions-tour-stage-2-masters-reykjav-k/?series_id=all"
+    matches = rizzLinks(URL)
+
+    data = []
+    for match in matches:
+        data.append(ScrapeOBJ(match).match)
     print(data)
 
 

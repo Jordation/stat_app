@@ -9,7 +9,7 @@ QUEREY = {
         'from_event': '',
         'from_series': '',
         'from_map': '',
-        'from_player': '',
+        'from_player': 'yay',
     },
     'filters': {
         'on_map': '',
@@ -60,7 +60,9 @@ def mapIDsFromMapName(scope, session):
 
     return map_ids
 
+
 def findEntry(scope, session):
+
     map_id_set = []
     if scope['all']:
         map_id_set = getAllMaps(session)
@@ -70,12 +72,20 @@ def findEntry(scope, session):
         map_id_set = mapIDsFromSeries(scope, session)
     if scope['from_map']:
         map_id_set = mapIDsFromMapName(scope, session)
+
     return map_id_set
+
+
 def doFilters(filters, session):
 
+
+
     pass
+
+
 def processQuerey(querey, session):
-    if querey['scope']['from_player']:
+
+    if querey['scope']['from_player']:  # findEntry not needed if user only requests stats of 1 player.
         if querey['filters']['side_target'] == 'c':
             get_stats_stmt = select(TBL_Stats).where(TBL_Stats.player == querey['scope']['from_player'])
         if querey['filters']['side_target'] == 'd':
@@ -84,7 +94,7 @@ def processQuerey(querey, session):
             get_stats_stmt = select(TBL_Stats_ATK).where(TBL_Stats_ATK.player == querey['scope']['from_player'])
         stat_set = valuesFromSTMT(session.execute(get_stats_stmt))
     else:
-        map_id_set = findEntry(querey['scope'], session)
+        map_ids_set = findEntry(querey['scope'], session)
 
     return stat_set
 
@@ -95,6 +105,7 @@ def valuesFromSTMT(stmt):
         return l[0]
     else:
         return l
+
 
 def mapsFromMatches(matches, session):
     stmt = select(TBL_Map.id).where(TBL_Map.match_id.in_(matches))

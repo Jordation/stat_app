@@ -4,6 +4,22 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from SQLA_Schema import TBL_Events, TBL_Match, TBL_Map, TBL_Stats, TBL_Stats_ATK, TBL_Stats_DEF
 
+BASE_EVENTS = ['https://www.vlr.gg/event/matches/1015/valorant-champions-2022/?series_id=all',
+               'https://www.vlr.gg/event/matches/449/valorant-champions-2021/?series_id=all',
+               'https://www.vlr.gg/event/matches/926/valorant-champions-tour-stage-1-masters-reykjav-k/?series_id=all',
+               'https://www.vlr.gg/event/matches/466/valorant-champions-tour-stage-3-masters-berlin/?series_id=all',
+               'https://www.vlr.gg/event/matches/1014/valorant-champions-tour-stage-2-masters-copenhagen/?series_id=all',
+               'https://www.vlr.gg/event/matches/1063/champions-tour-asia-pacific-stage-2-challengers-playoffs/?series_id=2061',
+               'https://www.vlr.gg/event/matches/984/champions-tour-emea-stage-2-challengers/?series_id=1931',
+               'https://www.vlr.gg/event/matches/984/champions-tour-emea-stage-2-challengers/?series_id=1932',
+               'https://www.vlr.gg/event/matches/800/champions-tour-north-america-stage-2-challengers/?series_id=1953',
+               'https://www.vlr.gg/event/matches/800/champions-tour-north-america-stage-2-challengers/?series_id=1561',
+               'https://www.vlr.gg/event/matches/884/champions-tour-asia-pacific-stage-1-challengers-playoffs/?series_id=1753',
+               'https://www.vlr.gg/event/matches/799/champions-tour-north-america-stage-1-challengers/?series_id=1559',
+               'https://www.vlr.gg/event/matches/799/champions-tour-north-america-stage-1-challengers/?series_id=1737',
+               'https://www.vlr.gg/event/matches/854/champions-tour-stage-1-emea-challengers/?series_id=1669',
+               'https://www.vlr.gg/event/matches/854/champions-tour-stage-1-emea-challengers/?series_id=1670'
+               ]
 
 class TokenGetter:
     def __init__(self, links):
@@ -105,7 +121,10 @@ def insertIntoMap(token):
             winner=token['data'][f'm{i}_data']['winner'],
             player_stats_combined=stat_set[0],
             player_stats_attack=stat_set[1],
-            player_stats_defence=stat_set[2]
+            player_stats_defence=stat_set[2],
+            comb_map=stat_set[0],
+            atk_map=stat_set[1],
+            def_map=stat_set[2]
             )
         )
     return maps_list
@@ -141,10 +160,11 @@ def insertIntoDB(tokens):
 
 def main():
 
-    event_url = "https://www.vlr.gg/event/matches/1092/champions-tour-game-changers-championship-berlin"
-    match_urls = rizzLinks(event_url)
+    # create loop to get token set per match, not per event and commit on completion rather than a large chunk of tokens
+    # wrap in a try: pass to avoid busted matches taking out an entire event
+
+    match_urls = rizzLinks(BASE_EVENTS[15])
     tokens = TokenGetter(match_urls).tokens
-    # tokens = [createToken(URL1), createToken(URL2)]
     insertIntoDB(tokens)
     return
 

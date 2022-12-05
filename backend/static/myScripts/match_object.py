@@ -58,6 +58,7 @@ def nlk(x):
 
 class ScrapeOBJ:
     def __init__(self, url):
+        print(f"active {url=}")
         self.rdy_data = SoupsPrepare(url).cleaned_data
         self.match = Match(self.rdy_data)
 

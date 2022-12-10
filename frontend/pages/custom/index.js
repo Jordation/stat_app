@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import GraphZone from "./components/ui/multiGraph";
+import GraphZone from "../components/multiGraph";
 function UrlToGraphs() {
     const [graphParams, setGraphParams] = useState({});
     const [url, setUrl] = useState("");

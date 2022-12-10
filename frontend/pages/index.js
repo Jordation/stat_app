@@ -52,10 +52,16 @@ export default function BasePage() {
               <header id="nav-header">
                   <nav id="nav-header-inner">
                       <div className="nav-item">
-                          Custom Graphs
                           <Link href="/custom">
                               <div>
-                                  its a box
+                                  Custom Graphs
+                              </div>
+                          </Link>
+                      </div>
+                      <div className="nav-item">
+                          <Link href="/flexbox">
+                              <div>
+                                  Playground
                               </div>
                           </Link>
                       </div>

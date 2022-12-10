@@ -35,8 +35,7 @@ function UrlToGraphs() {
             <br/>
             <GraphZone params = {graphParams}/>
         </div>
-        // figure out how to take params and load graphs AFTER some  async
-        // no doubt
+
     )
 }
 

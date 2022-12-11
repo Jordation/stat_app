@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 body {
-  background-color: dimgrey;
+  background-color: rgb(181, 188, 194);
 
 }
 .middle {
   background-color: beige;
 }
 div{
-  outline-color: darkred;
+  outline-color: rgb(125, 131, 136);
   outline-style: solid;
   outline-width: 2px;
 }

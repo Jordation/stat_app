@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import GraphZone from "../components/multiGraph";
 function UrlToGraphs() {
     const [graphParams, setGraphParams] = useState({});
     const [url, setUrl] = useState("");
@@ -33,7 +32,7 @@ function UrlToGraphs() {
             </select>
             <input type="submit" value="generate graph" onClick={getData}/>
             <br/>
-            <GraphZone params = {graphParams}/>
+
         </div>
 
     )

@@ -10,7 +10,6 @@ body {
   background-color: beige;
 }
 div{
+  outline: 1px solid;
   outline-color: rgb(125, 131, 136);
-  outline-style: solid;
-  outline-width: 2px;
 }

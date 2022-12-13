@@ -15,6 +15,7 @@ QUEREY = {
         'on_map': '',
         'on_agent': 'Chamber',
         'on_team': '',
+        'vs_team':
         'x_target': 'fb',
         'y_target': 'player',
         'side_target': 'c',

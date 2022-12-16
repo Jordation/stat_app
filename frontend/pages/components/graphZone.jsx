@@ -49,32 +49,19 @@ function fakeGraph(){
 	return cfg;
 }
 
-const GraphZone = () => {
-var init_data = fakeGraph();
-const graph_types = ['bar', 'line', 'pie']
-const [currKey, setCurrKey] = useState("Graph_I")
-const [graphs, setGraphs] = useState([])
+const GraphZone = ({graphs}) => {
 
-const handleSubmitClick = () => {
-	let newkey = (currKey + "I")
-	setCurrKey(newkey);
-	let new_data = fakeGraph();
-	graphs.push(<div className='col-span-1 p-3'><ModGraph key={newkey} cfg={new_data} type={graph_types[rn(1,3)]}/></div>)
-	setGraphs([...graphs])
-}
+	const [graphArr, setgraphArr] = useState([])
 
-const handleDelClick = () => {
-	let len = graphs.length
-	graphs.pop((len-1))
-	setGraphs([...graphs])
-}
-//
+useEffect(() => {
+setgraphArr([...graphs])
+
+},[graphs])
+
 return(
 	<div>
-		<GeneralButton onClick={handleSubmitClick} btntext="add graph"/>
-		<GeneralButton onClick={handleDelClick} btntext="remove graph"/>
 		<div className='container grid grid-cols-3'>
-			{[...graphs]}
+
 		</div>
 	</div>
 )

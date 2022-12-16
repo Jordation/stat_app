@@ -12,7 +12,7 @@ import {
     PointElement,
   } from 'chart.js'
   import { Bar, Pie, Line } from "react-chartjs-2";
-const ModGraph = (props) => {
+const ModGraph = ({props}) => {
 
     ChartJS.register(
         CategoryScale,
@@ -25,9 +25,11 @@ const ModGraph = (props) => {
         LineElement,
         PointElement,
       );
+
 const graphClasses = "basis-1/3"
 let data = props.cfg.data
 let options = props.cfg.options
+
 switch(props.type) {
     case 'bar':
       return (<div className={graphClasses}>

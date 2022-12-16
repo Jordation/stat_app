@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker
-from SQLA_Schema import TBL_Events, TBL_Match, TBL_Map, TBL_Stats, TBL_Stats_ATK, TBL_Stats_DEF
+#from SQLA_Schema import TBL_Events, TBL_Match, TBL_Map, TBL_Stats, TBL_Stats_ATK, TBL_Stats_DEF
+from static.myScripts.SQLA_Schema import TBL_Events, TBL_Match, TBL_Map, TBL_Stats, TBL_Stats_ATK, TBL_Stats_DEF
 
 
 QUEREY = {
@@ -119,20 +120,15 @@ def filterByOnMap(mapname, session, map_ids):
     return result
 
 
-def main():
-    engine = create_engine("sqlite:///db/test_db.db", echo=True, future=True)
+def quereyRequest(querey):
+    engine = create_engine(r"sqlite:///static/myScripts/the_database/test_db.db", echo=True, future=True)
     Session = sessionmaker(bind=engine)
     session = Session()
-    result = processQuerey(QUEREY, session)
-    for x in result:
-        print(f'{x.k=}, {x.agent=}, {x.player=}')
+    result = processQuerey(querey, session)
 
-
-
-
+    vals = [{"l": x.mapname, 
+            "v": x.k}
+            for x in result]
+    sorted_vals = sorted(vals, key=lambda x:x["v"], reverse=True)
     session.close()
-    return result
-
-
-if __name__ == '__main__':
-    main()
+    return sorted_vals[:10]

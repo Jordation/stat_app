@@ -1,7 +1,7 @@
 from sqlalchemy import Column, create_engine, Integer, String, ForeignKey, MetaData
 from sqlalchemy.orm import declarative_base, relationship
 
-engine = create_engine(r"sqlite:///db/test_db.db", echo=True, future=True)
+engine = create_engine(r"sqlite:///static/myScripts/the_database/test_db.db", echo=True, future=True)
 base = declarative_base()
 
 class TBL_Events(base):

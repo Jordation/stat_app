@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 from flask import request
 from flask_cors import CORS
 from static.myScripts.Format_MatchOBJ import createToken
+from static.myScripts.QuereyDB import quereyRequest
 
 app = Flask(__name__)
 CORS(app)
@@ -29,26 +30,9 @@ def returnXY(fields, data):
 
 @app.route('/loadStats', methods=['POST'])
 def loadStats():
-    req = str(request.get_json(force=True)['url'])
-    y_field = str(request.get_json(force=True)['y_field'])
-    print(y_field)
-    if checkLink(req):
-        url = req
-        token = createToken(url)['data']
-        xy = returnXY({'mapnum': '1',
-                       'x': 'Player',
-                       'y': y_field},
-                      token)
-
-        params = {
-            'x': xy[0],
-            'y': xy[1],
-            'type': 'bar',
-        }
-        return params
-    else:
-        return
-
+    querey = request.get_json(force=True)["querey"]
+    graph_data = quereyRequest(querey)
+    return graph_data
 
 if __name__ == '__main__':
     app.run()

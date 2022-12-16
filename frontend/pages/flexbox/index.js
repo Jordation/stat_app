@@ -16,22 +16,14 @@ export default function flexbox() {
         <div className='basis-1/5'>big dumb guy on the left</div>
         <div className='basis-3/5'>
         <DefaultNav/>
-            <div> 2 </div>
+            <div className='p-3'> 
+            The data returned by providing an initial searching scope and additional filters is returned as "rows" from the database.
+            Each row has a series of values on it representing the data pertaining to one map played as def or attack rounds, or as a combined set for the map.
+            </div>
             <QuereyBox />
-            <div> <GraphZone /> </div>
+            <GraphZone />
         </div>
             <div className='basis-1/5'> big dumb guy on the right </div>
     </div>
 );}
-// return(
-// <div>
-//     <DefaultHead />
-//     <DefaultNav />
-//     <div className='flex justify-self-auto'>
-//         <div className="basis-3/5">
-//             <div className='w-full p-2'>other garbage</div>
-//             <QuereyBox/>
-//             <GraphZone/>
-//         </div>
-//     </div>
-// </div>
+

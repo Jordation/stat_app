@@ -59,7 +59,7 @@ const handleSubmitClick = () => {
 	let newkey = (currKey + "I")
 	setCurrKey(newkey);
 	let new_data = fakeGraph();
-	graphs.push(<ModGraph key={newkey} cfg={new_data} type={graph_types[rn(1,3)]}/>)
+	graphs.push(<div className='col-span-1 p-3'><ModGraph key={newkey} cfg={new_data} type={graph_types[rn(1,3)]}/></div>)
 	setGraphs([...graphs])
 }
 
@@ -73,7 +73,7 @@ return(
 	<div>
 		<GeneralButton onClick={handleSubmitClick} btntext="add graph"/>
 		<GeneralButton onClick={handleDelClick} btntext="remove graph"/>
-		<div className='flex flex-wrap flex-initial'>
+		<div className='container grid grid-cols-3'>
 			{[...graphs]}
 		</div>
 	</div>

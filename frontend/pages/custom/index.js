@@ -5,12 +5,12 @@ function UrlToGraphs() {
     const [url, setUrl] = useState("");
     const [y_val, set_y_val] = useState("");
     const getData = () => {
-        console.log(y_val)
-        fetch('http://localhost:5000/loadStats', {
-            method: 'POST',
-            body: JSON.stringify({ url: url, y_field: y_val })
-          }
+        fetch('http://localhost:5000/loadStats', 
+        {method: 'POST', body: JSON.stringify({ url: url, y_field: y_val }
+                )
+            }
         )
+
     .then(response => response.json())
     .then((response) => {
             console.log(response)

@@ -1,10 +1,9 @@
-import pandas as pd
+
 #from match_object import ScrapeOBJ
 from static.myScripts.match_object import ScrapeOBJ
 
 URL = "https://www.vlr.gg/130685/loud-vs-optic-gaming-valorant-champions-2022-gf"
 
-# return [pd.Series(x) for x in new_dicts]
 
 def combineStat(a_frame, d_frame):
     def doCombine(a, d):

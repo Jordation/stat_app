@@ -9,7 +9,7 @@ CATEGORIES_PLAYERS = ['Player', 'Agent', 'ACS',
 CATEGORIES_MAP = ['Map', 'Team 1 Stats', 'Team 2 Stats']
 SHOULD_BE_INT = ['ACS', 'Kills', 'Deaths', 'Assists', 'ADR', 'First Bloods', 'First deaths', 'KAST', 'Headshot %']
 # i understand objects way better now lmao idk why they are data classes
-# rebuild this to just call methods which set the self.value .
+# rebuild this properly without classes
 #
 #
 # this list is used to iterate against header_text indicies to pull the data I want,

@@ -8,13 +8,13 @@ import QuereyBox from '../components/quereyBox'
 
 
 const options = {
-	responsive: true,
+	responsive: false,
 	plugins: {
 	legend: {
 		position: 'top',
 	},
 	title: {
-		display: true,
+		display: false,
 		text: 'im working',
 			},
 	},
@@ -86,18 +86,20 @@ export default function flexbox() {
     const {register,  handleSubmit } = useForm(querey);
     const [dataSets, setDataSets] = useState([])
     const onSubmit = data => {
+        console.log(formQuerey(data))
         fetch('http://localhost:5000/loadStats',
         {method: "POST", body: JSON.stringify({querey: formQuerey(data)})})
         .then(response => response.json())
         .then(response => {
             console.log(response)
             let newCFG = makeGraph(response);
-            setDataSets([...dataSets, newCFG]) 
-            console.log(dataSets)
+            setDataSets(() => [...dataSets, newCFG]) 
         })
         }
     
-
+    const onclickPurge = () => {
+        setDataSets(() => [])
+    }
 
     return(
     <div className='flex flex-row'>
@@ -110,7 +112,7 @@ export default function flexbox() {
             Each row has a series of values on it representing the data pertaining to one map played as def or attack rounds, or as a combined set for the map.
             </div>
             <QuereyBox register={register} onSubmit={onSubmit} handleSubmit={handleSubmit}/>
-            <GraphZone graphs={dataSets}/>
+            {dataSets && <GraphZone graphs={dataSets} onClick={onclickPurge}/>}
         </div>
             <div className='basis-1/5'> big dumb guy on the right </div>
     </div>

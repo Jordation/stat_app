@@ -31,6 +31,7 @@ def returnXY(fields, data):
 @app.route('/loadStats', methods=['POST'])
 def loadStats():
     querey = request.get_json(force=True)["querey"]
+    print(querey)
     graph_data = quereyRequest(querey)
     return graph_data
 

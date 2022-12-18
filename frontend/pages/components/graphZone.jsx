@@ -49,7 +49,7 @@ function fakeGraph(){
 	return cfg;
 }
 
-const GraphZone = ({graphs}) => {
+const GraphZone = ({graphs, onClick}) => {
 
 	const [graphArr, setgraphArr] = useState([])
 
@@ -60,8 +60,9 @@ setgraphArr([...graphs])
 
 return(
 	<div>
+		<GeneralButton onClick={onClick} btntext="clear graphs" />
 		<div className='container grid grid-cols-3'>
-
+			{graphArr?.map(config => <ModGraph data={config.data} options={config.options} ctype={"bar"} />)}
 		</div>
 	</div>
 )

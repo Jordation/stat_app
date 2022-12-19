@@ -1,7 +1,7 @@
 from sqlalchemy import Column, create_engine, Integer, String, ForeignKey, MetaData
 from sqlalchemy.orm import declarative_base, relationship
 
-engine = create_engine(r"sqlite:///static/myScripts/the_database/test_db.db", echo=True, future=True)
+# engine = create_engine(r"sqlite:///static/myScripts/the_database/test_db.db", echo=True, future=True)
 base = declarative_base()
 
 class TBL_Events(base):
@@ -151,7 +151,3 @@ class TBL_Stats_ATK(base):
 
     def __repr__(self):
         return f"{self.player=}, {self.agent=}, {self.team=}"
-
-
-base.metadata.create_all(engine)
-

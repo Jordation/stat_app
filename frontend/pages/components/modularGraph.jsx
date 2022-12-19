@@ -26,7 +26,7 @@ const ModGraph = ({ data, options, ctype }) => {
         PointElement,
       );
 
-const graphClasses = "basis-1/3"
+const graphClasses = "h-1/2 w-full"
 
 switch(ctype) {
     case 'bar':

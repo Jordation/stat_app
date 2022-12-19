@@ -8,7 +8,7 @@ import QuereyBox from '../components/quereyBox'
 
 
 const options = {
-	responsive: false,
+	responsive: true,
 	plugins: {
 	legend: {
 		position: 'top',
@@ -49,16 +49,18 @@ function formQuerey(inQuerey){
             'on_agent': '',
             'on_team': '',
             'vs_team': '',
-            'x_target': '',
-            'y_target': '',
-            'side_target': '',
+        },
+        'targets': {
+            'x': '',
+            'y': '',
+            'side': ''
         }
     }
     newQuerey.scope[inQuerey.scope_type] = inQuerey.scope_value;
     newQuerey.filters[inQuerey.filter_type] = inQuerey.filter_value;
-    newQuerey.filters.x_target = inQuerey.x_target;
-    newQuerey.filters.y_target = inQuerey.y_target;
-    newQuerey.filters.side_target = inQuerey.side_target;
+    newQuerey.targets.x = inQuerey.x_target;
+    newQuerey.targets.y = inQuerey.y_target;
+    newQuerey.targets.side = inQuerey.side_target;
     return newQuerey;
 }
 function makeGraph(data){
@@ -94,15 +96,17 @@ export default function flexbox() {
             console.log(response)
             let newCFG = makeGraph(response);
             setDataSets(() => [...dataSets, newCFG]) 
-        })
         }
+    )
+}
     
+
     const onclickPurge = () => {
         setDataSets(() => [])
     }
 
     return(
-    <div className='flex flex-row'>
+    <div className='flex flex-row overflow-hidden'>
         <DefaultHead />
         <div className='basis-1/5'>big dumb guy on the left</div>
         <div className='basis-3/5'>

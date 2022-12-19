@@ -59,11 +59,9 @@ setgraphArr([...graphs])
 },[graphs])
 
 return(
-	<div>
+	<div className='w-full h-max overflow-scroll'>
 		<GeneralButton onClick={onClick} btntext="clear graphs" />
-		<div className='container grid grid-cols-3'>
 			{graphArr?.map(config => <ModGraph data={config.data} options={config.options} ctype={"bar"} />)}
-		</div>
 	</div>
 )
 }

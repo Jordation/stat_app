@@ -1,42 +1,32 @@
 
 import React, { useState } from 'react';
-function UrlToGraphs() {
-    const [graphParams, setGraphParams] = useState({});
-    const [url, setUrl] = useState("");
-    const [y_val, set_y_val] = useState("");
-    const getData = () => {
-        fetch('http://localhost:5000/loadStats', 
-        {method: 'POST', body: JSON.stringify({ url: url, y_field: y_val }
-                )
-            }
-        )
+import DefaultNav from '../components/defaultNav'
+import DefaultHead from '../components/defaultHead'
 
-    .then(response => response.json())
-    .then((response) => {
-            console.log(response)
-            setGraphParams(response)
-            console.log(graphParams)
-            }
-        )
-    }
-
+function FormTests() {
     return(
-        <div>
-            <input type="text" onChange={e => setUrl(e.target.value)}/>
-            <label>select fields to search: </label>
-            <select id="y field" onChange={e => set_y_val(e.target.value)}>
-                <option value="Kills">Kills</option>
-                <option value="ACS">ACS</option>
-                <option value="First Bloods">FB</option>
-                <option value="Headshot %">HS%</option>
-            </select>
-            <input type="submit" value="generate graph" onClick={getData}/>
-            <br/>
-
+        <div className='flex flex-row overflow-hidden text-purple-100'>
+            <DefaultHead />
+            <div className='basis-1/6'>123</div>
+            <div className='basis-4/6'>
+                <DefaultNav/>
+                <div className='container flex'>
+                    <div className='w-1/2 text-center mx'>
+                        <label className='block'>Filter by maps: 
+                        <input className='block rounded' type="text"></input>
+                        </label>
+                    </div>
+                    <div className='w-1/3 text-center mx'>
+                        <label className=''>Filter by maps: 
+                        <input className='rounded' type="text"></input>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div className='basis-1/6'>321</div>
         </div>
+    );}
+    
 
-    )
-}
 
-
-export default UrlToGraphs;
+export default FormTests;

@@ -5,11 +5,12 @@ from static.myScripts.match_object import ScrapeOBJ
 URL = "https://www.vlr.gg/130685/loud-vs-optic-gaming-valorant-champions-2022-gf"
 
 
-def combineStat(a_frame, d_frame):
+def combineStat(a_frame, d_frame, stupidfuckingratingnumber):
     def doCombine(a, d):
         combined = {
             'Player': a['Player'],
             'Agent': a['Agent'],
+            #'Rating': stupidfuckingratingnumber
             'ACS': (a['ACS'] + d['ACS'])//2,
             'Kills': a['Kills']+d['Kills'],
             'Deaths': a['Deaths']+d['Deaths'],

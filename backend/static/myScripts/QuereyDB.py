@@ -158,16 +158,10 @@ def quereyRequest(querey):
     Session = sessionmaker(bind=engine)
     session = Session()
     vals = processQuerey(querey, session)
+    session.close()
     sorted_vals = sorted(vals, key=lambda x:x["v"], reverse=True)
     return sorted_vals[:25]
-    # result = processQuerey(querey, session)
-    # vals = [{"l": x.mapname, 
-    #         "v": x.k}
-    #         for x in result]
-    # sorted_vals = sorted(vals, key=lambda x:x["v"], reverse=True)
-    # print(sorted_vals[:10])
-    # session.close()
-    # return sorted_vals[:10]
+
 
 #if __name__ == "__main__":
 #    quereyRequest(ZZZ)

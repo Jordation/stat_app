@@ -18,7 +18,7 @@ const navs = [
 
 function NavItem(props){
 return(
-    <div className='nav-item w-24 h-10 text-center text-orange-300 text-sm'>
+    <div className='basis-1/4 nav-item w-24 h-12 text-center'>
         <Link className='text-center' href={props.link}>{props.text}</Link>
     </div>
 
@@ -26,9 +26,8 @@ return(
 }
 
 export default function DefaultNav() {
-return (
-            <nav id="nav-header" className='flex flex-nowrap bg-emerald-900 text-white py-4 justify-center'>
+return (    <div className='flex text-white py-4 justify-evenly'>
             {navs.map(item => <NavItem key={item.text} link={item.link} text={item.text}/>)}
-            </nav>
+            </div>
     )
 }

@@ -1,15 +1,67 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-body {
-  background-color: rgb(8, 30, 48);
-  
-}
-.middle {
-  background-color: beige;
-}
 div{
   outline: 1px solid;
-  outline-color: rgb(30, 160, 77);
+  outline-color: black
+} 
+:root {
+  --bg-colour: rgb(44, 59, 87);
+  --bg-colour-darker: rgb(20, 27, 40);
+  --main-text-colour: rgb(206, 255, 225);
+  background-color: var(--bg-colour);
+  --graph-colour: rgb(255, 37, 102);
+}
+
+.PageWrapper{
+  display: grid;
+  grid-template-columns: 12rem calc(100vi - 12rem);
+  grid-template-rows: 8rem calc(100vb - 8rem);
+}
+
+.IsText{
+  color: var(--main-text-colour);
+}
+
+.Querey-Explanation-Graphs{
+  display: grid;
+  grid-template-rows: 50% 50%;
+  grid-template-rows: auto;
+}
+
+.Querey-Zone{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.Querey-Box{
+  display: grid;
+;
+}
+
+.Form-Item {
+  padding: 3px;
+  background-color: var(--bg-colour-darker);
+  color: azure;
+}
+.Form-Label{
+  color: azure;
+  padding: 3px;
+}
+.input-holder{
+  float: left;
+  margin: 12px;
+}
+input, label, select{
+  display: block;
+  color: azure;
+}
+
+.Graph-Wrapper{
+  display: grid;
+  grid-template-columns: 45% 45%;
+  grid-gap: 1rem;
+  overflow: auto;
+}
+
+.GRAPH{
+  column-span: 1;
 }

@@ -26,12 +26,14 @@ const ModGraph = ({ data, options, ctype }) => {
         PointElement,
       );
 
-const graphClasses = "h-1/2 w-full"
+
 
 switch(ctype) {
     case 'bar':
-      return (<div className={graphClasses}>
-      <Bar data={data} options={options} datasetIdKey="id"/></div>)
+      return (
+      <div className="GRAPH">
+      <Bar data={data} options={options} datasetIdKey="id"/>
+      </div>)
     case 'line':
         return (<div className={graphClasses}>
         <Line data={data} options={options} datasetIdKey="id"/></div>)

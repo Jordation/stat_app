@@ -73,6 +73,61 @@ def getSoup(url):
     page = (requests.get(url)).text
     return BeautifulSoup(page, "html.parser")
 # gives me soup :)
+def findMatchWinner(m_d):
+    if m_d['Team 1 Maps W'] > m_d['Team 2 Maps W']:
+        return m_d['Team 1']
+    else: 
+        return m_d['Team 2']
+#
+
+def findMapWinner(t1, t2):
+    t1_s, t2_s = int(t1[1]), int(t2[1])
+    if t1_s > t2_s:
+        return t1[0]
+    else:
+        return t2[0]
+#
+
+def combineStat(a_frame, d_frame):
+    def doCombine(a, d):
+        combined = {
+            'Player': a['Player'],
+            'Agent': a['Agent'],
+            #'Rating': stupidfuckingratingnumber
+            'ACS': (a['ACS'] + d['ACS'])//2,
+            'Kills': a['Kills']+d['Kills'],
+            'Deaths': a['Deaths']+d['Deaths'],
+            'Assists': a['Assists']+d['Assists'],
+            'KAST': (a['KAST'] + d['KAST'])//2,
+            'ADR': (a['ADR']+d['ADR'])//2,
+            'Headshot %': (a['Headshot %'] + d['Headshot %'])//2,
+            'First Bloods': a['First Bloods']+d['First Bloods'],
+            'First deaths': a['First deaths']+d['First deaths']
+        }
+        return combined
+
+    l = []
+    for i in range(len(a_frame)):
+        l.append(doCombine(a_frame[i], d_frame[i]))
+
+    return l
+# combines the atk and def stats for each player
+
+def ensureTypes(dicts):
+    def doEnsure(data_dict):
+        data_dict['ACS'] = int(data_dict['ACS'])
+        data_dict['Kills'] = int(data_dict['Kills'])
+        data_dict['Deaths'] = int(data_dict['Deaths'])
+        data_dict['Assists'] = int(data_dict['Assists'])
+        data_dict['ADR'] = int(data_dict['ADR'])
+        data_dict['First Bloods'] = int(data_dict['First Bloods'])
+        data_dict['First deaths'] = int(data_dict['First deaths'])
+        data_dict['KAST'] = int(data_dict['KAST'].split('%')[0])
+        data_dict['Headshot %'] = int(data_dict['Headshot %'].split('%')[0])
+        return data_dict
+    for eaDict in dicts:
+        eaDict = doEnsure(eaDict)
+    return dicts
 
 #
 # end helper funcs
@@ -147,7 +202,26 @@ def prepareSoup(soup):
 # funcs to create map dics
 #
 
-
+def splitMaps(stats, map_winner, map_name, teams):
+    t1a, t1d, t2a, t2d = splitTeams(stats)
+    t1c = combineStat(t1a, t1d)
+    t2c = combineStat(t2a, t2d)
+    d = {
+        
+        'map': map_name,
+        'winner': map_winner,
+        't1': teams[0],
+        't2': teams[1],
+        
+        't1_a': t1a,
+        't1_d': t1d,
+        't1_c': t1c,
+        
+        't2_a': t2a,
+        't2_d': t2d,
+        't2_c': t2c,
+    }
+    return d
 
 #
 # end map funcs
@@ -158,7 +232,16 @@ def prepareSoup(soup):
 # funcs to create player dicts
 #
 
+def splitTeams(stats):
+    t1 = stats[:5]
+    t2 = stats[5:]
+    
+    t1_a = [{key: x[0][i] for i, key in enumerate(CATEGORIES_PLAYERS)} for x in t1]
+    t1_d = [{key: x[1][i] for i, key in enumerate(CATEGORIES_PLAYERS)} for x in t1]
+    t2_a = [{key: x[0][i] for i, key in enumerate(CATEGORIES_PLAYERS)} for x in t2]
+    t2_d = [{key: x[1][i] for i, key in enumerate(CATEGORIES_PLAYERS)} for x in t2]
 
+    return ensureTypes(t1_a), ensureTypes(t1_d), ensureTypes(t2_a), ensureTypes(t2_d)
 
 #
 # end player funcs
@@ -167,130 +250,33 @@ def prepareSoup(soup):
 # this is the function that does it all
 def getTheStats(url):
     soup = getSoup(url)
+    print(f'{url=}')
     cleaned_data = prepareSoup(soup)
     
-    match_data = {
-        'maps_played': cleaned_data[1],
-        'match_data': {key: cleaned_data[0][i] for i, key in enumerate(CATEGORIES_MATCH)},
-        
+    match_data = {key: cleaned_data[0][i] for i, key in enumerate(CATEGORIES_MATCH)}
+    match_data['Maps Played'] = cleaned_data[1]
+    match_data['Winner'] = findMatchWinner(match_data)
+    
+    token = {
+        'data':{
+            'match_data': {
+                'event': match_data['Event Title'],
+                'series': match_data['Series'],
+                'bestof': match_data['Best Of'],
+                'winner': match_data['Winner'],
+                'maps_played': len(match_data['Maps Played']),
+            }
+        }        
     }
+
+    for i in range(len(cleaned_data[3])):
+        winner = findMapWinner(cleaned_data[2][i]['Team 1'], cleaned_data[2][i]['Team 2'])
+        teams = [cleaned_data[0][0], cleaned_data[0][1]]
+        mapname = cleaned_data[1][i]
+        token['data'][f'm{i+1}_data'] = splitMaps(cleaned_data[3][i], winner, mapname, teams)
     
-    
-    
-    
-    
-    pass
+    return token
 
-
-
-
-
-
-
-
-
-
-class ScrapeOBJ:
-    def __init__(self, url):
-        print(f"active {url=}")
-        self.rdy_data = SoupsPrepare(url).cleaned_data
-        self.match = Match(self.rdy_data)
-
-
-class SoupsPrepare:
-    def __init__(self, url):
-        self.soup = self.getSoup(url)
-        self.cleaned_data = self.doSplit(self.soup)
-
-    @staticmethod
-    def getSoup(page_link):
-        html_page = (requests.get(page_link)).text
-        theSOUP = BeautifulSoup(html_page, "html.parser")
-        return theSOUP
-
-    @staticmethod
-    def doSplit(soup):
-        pass
-
-
-@dataclass
-class Match:
-    data_list: list = field(default_factory=list)
-
-    @property
-    def mapsPlayed(self):
-        return self.data_list[1]
-
-    @property
-    def matchData(self):
-        return {key: self.data_list[0][i] for i, key in enumerate(CATEGORIES_MATCH)}
-    
-    @property
-    def maps(self):
-        return [Map(item, self.mapsPlayed[ind], self.data_list[2][ind]) for ind, item in enumerate(self.data_list[3])]
-
-
-    @property
-    def matchWinner(self):
-        if int(self.matchData['Team 1 Maps W']) > int(self.matchData['Team 2 Maps W']):
-            return self.matchData['Team 1']
-        else:
-            return self.matchData['Team 2']
-
-def ensureTypes(dicts):
-    def doEnsure(data_dict):
-        data_dict['ACS'] = int(data_dict['ACS'])
-        data_dict['Kills'] = int(data_dict['Kills'])
-        data_dict['Deaths'] = int(data_dict['Deaths'])
-        data_dict['Assists'] = int(data_dict['Assists'])
-        data_dict['ADR'] = int(data_dict['ADR'])
-        data_dict['First Bloods'] = int(data_dict['First Bloods'])
-        data_dict['First deaths'] = int(data_dict['First deaths'])
-        data_dict['KAST'] = int(data_dict['KAST'].split('%')[0])
-        data_dict['Headshot %'] = int(data_dict['Headshot %'].split('%')[0])
-        return data_dict
-    for eaDict in dicts:
-        eaDict = doEnsure(eaDict.stats)
-    return dicts
-
-@dataclass
-class Map:
-    data_list: list = field(default_factory=list)
-    map_played: str = "Map Name"
-    score: dict = field(default_factory=dict)
-
-    @property
-    def map_winner(self):
-        t1 = self.score["Team 1"]
-        t2 = self.score["Team 2"]
-        result = t1[0] if int(t1[1]) > int(t2[1]) else t2[0]
-        return result
-
-    @property
-    def team_1_stats(self):
-        if len(self.data_list[0]) > 10:
-            raise Exception("Not Configured for > or < 5 a side currently.")
-        working = self.data_list[:5]
-        atk_stat = [Player({key: x[0][i] for i, key in enumerate(CATEGORIES_PLAYERS)}) for x in working]
-        def_stat = [Player({key: x[1][i] for i, key in enumerate(CATEGORIES_PLAYERS)}) for x in working]
-        return {"atk_stats": ensureTypes(atk_stat), "def_stats": ensureTypes(def_stat)}
-
-    @property
-    def team_2_stats(self):
-        if len(self.data_list[0]) > 10:
-            raise Exception("Not Configured for > or < 5 a side currently.")
-        working = self.data_list[5:]
-        atk_stat = [Player({key: x[0][i] for i, key in enumerate(CATEGORIES_PLAYERS)}) for x in working]
-        def_stat = [Player({key: x[1][i] for i, key in enumerate(CATEGORIES_PLAYERS)}) for x in working]
-        return {"atk_stats": ensureTypes(atk_stat), "def_stats": ensureTypes(def_stat)}
-
-
-
-@dataclass
-class Player:
-    stats: dict = field(default_factory=dict)
-    
-    
 if __name__ == '__main__':
-    getTheStats(LINK_IN)
-
+    token = getTheStats('https://www.hltv.org/matches/2340000/tyloo-vs-tyloo-esea-mdl-season-34-north-america')
+    print(123)

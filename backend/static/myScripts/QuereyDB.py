@@ -15,13 +15,11 @@ ZZZ = {
     'filters': {
         'on_map': 'Icebox',
         'on_agent': '',
-        'on_team': '',
-        'vs_team': '',   
+        'on_team': '', 
     },
     'targets': {
         'x': 'k',
         'y': 'mapname',
-        'side': 'c',
         'max_columns': 15
     }
 }
@@ -160,7 +158,8 @@ def quereyRequest(querey):
     vals = processQuerey(querey, session)
     session.close()
     sorted_vals = sorted(vals, key=lambda x:x["v"], reverse=True)
-    return sorted_vals[:25]
+    max_cols = int(querey['targets']['max_columns'])
+    return sorted_vals[:max_cols]
 
 
 #if __name__ == "__main__":

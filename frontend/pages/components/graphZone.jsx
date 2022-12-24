@@ -40,7 +40,7 @@ function fakeGraph(){
 					id: 1,
 					label: "data",
 					data: entryData.map(row => row.v),
-					backgroundColor: 'rgba(53, 162, 235, 0.5)'
+					backgroundColor: 'rgba(255, 37, 102, 1)'
 					},
 				],
 			},
@@ -59,9 +59,11 @@ setgraphArr([...graphs])
 },[graphs])
 
 return(
-	<div className='w-full h-max overflow-scroll'>
+	<div>
 		<GeneralButton onClick={onClick} btntext="clear graphs" />
+		<div className='Graph-Wrapper'>
 			{graphArr?.map(config => <ModGraph data={config.data} options={config.options} ctype={"bar"} />)}
+		</div>
 	</div>
 )
 }

@@ -6,9 +6,9 @@ import DefaultNav from '../components/defaultNav'
 import DefaultHead from '../components/defaultHead'
 import QuereyBox from '../components/quereyBox'
 
-
 const options = {
 	responsive: true,
+    scaleFontColor: "#000000",
 	plugins: {
 	legend: {
 		position: 'top',
@@ -19,21 +19,6 @@ const options = {
 			},
 	},
 };
-
-const filters = {
-    on_map: "",
-    on_agent: "",
-    on_team: "",
-    x_target: "",
-    y_target: "",
-    side_target: ""
-}
-
-const querey = {
-    scope_type: "",
-    scope_value: "",
-    filters
-}
 
 function formQuerey(inQuerey){
     let newQuerey = {
@@ -48,21 +33,23 @@ function formQuerey(inQuerey){
             'on_map': '',
             'on_agent': '',
             'on_team': '',
-            'vs_team': '',
         },
         'targets': {
             'x': '',
             'y': '',
-            'side': ''
+            'max_columns': ''
         }
     }
     newQuerey.scope[inQuerey.scope_type] = inQuerey.scope_value;
-    newQuerey.filters[inQuerey.filter_type] = inQuerey.filter_value;
-    newQuerey.targets.x = inQuerey.x_target;
-    newQuerey.targets.y = inQuerey.y_target;
-    newQuerey.targets.side = inQuerey.side_target;
+    newQuerey.filters.on_map = inQuerey.on_map;
+    newQuerey.filters.on_agent = inQuerey.on_agent;
+    newQuerey.filters.on_team = inQuerey.on_team;
+    newQuerey.targets.x = inQuerey.x;
+    newQuerey.targets.y = inQuerey.y;
+    newQuerey.targets.max_columns = inQuerey.max_columns;
     return newQuerey;
 }
+
 function makeGraph(data){
 
 	let entryData = data;
@@ -73,7 +60,7 @@ function makeGraph(data){
 					id: 1,
 					label: "data",
 					data: entryData.map(row => row.v),
-					backgroundColor: 'rgba(53, 162, 235, 0.5)'
+					backgroundColor: 'rgba(255, 37, 102, 1)'
 					},
 				],
 			},
@@ -85,7 +72,7 @@ function makeGraph(data){
 
 export default function flexbox() {
 
-    const {register,  handleSubmit } = useForm(querey);
+    const {register,  handleSubmit } = useForm({});
     const [dataSets, setDataSets] = useState([])
     const onSubmit = data => {
         console.log(formQuerey(data))
@@ -106,19 +93,20 @@ export default function flexbox() {
     }
 
     return(
-    <div className='flex flex-row overflow-hidden'>
-        <DefaultHead />
-        <div className='basis-1/5'>big dumb guy on the left</div>
-        <div className='basis-3/5'>
-        <DefaultNav/>
-            <div className='p-3'> 
-            The data returned by providing an initial searching scope and additional filters is returned as "rows" from the database.
-            Each row has a series of values on it representing the data pertaining to one map played as def or attack rounds, or as a combined set for the map.
-            </div>
+<div className='PageWrapper'>
+    <DefaultHead />
+    <div>empty</div>
+    <div>header text</div>
+    <div>nav bar</div>
+    <div className='Querey-Explanation-Graphs'>
+        <div className='Querey-Zone'>
             <QuereyBox register={register} onSubmit={onSubmit} handleSubmit={handleSubmit}/>
-            {dataSets && <GraphZone graphs={dataSets} onClick={onclickPurge}/>}
+            <div>explanation</div>
         </div>
-            <div className='basis-1/5'> big dumb guy on the right </div>
+        {dataSets && <GraphZone graphs={dataSets} onClick={onclickPurge}/>}
     </div>
+</div>
 );}
+
+
 

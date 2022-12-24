@@ -1,25 +1,25 @@
 import React from 'react';
-import Link from 'next/link';
 
-const Navigation = () => {
+function Header() {
   return (
-    <nav className="bg-gray-900 text-white py-4">
-      <div className="container mx-auto px-6">
-        <Link href="/" className="text-lg font-semibold text-gray-100 no-underline">
-          Your Website
-        </Link>
+    <div className='w-screen'>
+    <header className='w-screen'>
+      <h1>My Website</h1>
+    </header>
+    </div>
+  );
+}
 
-        <div className="flex items-center ml-auto">
-          <Link href="/about" className="px-3 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 focus:outline-none focus:bg-gray-800">
-            About
-          </Link>
-          <Link href="/custom" className="px-3 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 focus:outline-none focus:bg-gray-800">
-            Contact
-          </Link>
-        </div>
-      </div>
+function Nav() {
+  return (
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
     </nav>
   );
-};
+}
 
-export default Navigation;
+export { Header, Nav };

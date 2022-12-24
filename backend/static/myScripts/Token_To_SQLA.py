@@ -1,37 +1,10 @@
-from Format_MatchOBJ import createToken
+
 from event_scraper import rizzLinks
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from SQLA_Schema import TBL_Events, TBL_Match, TBL_Map, TBL_Stats, TBL_Stats_ATK, TBL_Stats_DEF
 
-BASE_EVENTS = ['https://www.vlr.gg/event/matches/1015/valorant-champions-2022/?series_id=all',
-               'https://www.vlr.gg/event/matches/449/valorant-champions-2021/?series_id=all',
-               'https://www.vlr.gg/event/matches/926/valorant-champions-tour-stage-1-masters-reykjav-k/?series_id=all',
-               'https://www.vlr.gg/event/matches/466/valorant-champions-tour-stage-3-masters-berlin/?series_id=all',
-               'https://www.vlr.gg/event/matches/1014/valorant-champions-tour-stage-2-masters-copenhagen/?series_id=all',
-               'https://www.vlr.gg/event/matches/1063/champions-tour-asia-pacific-stage-2-challengers-playoffs/?series_id=2061',
-               'https://www.vlr.gg/event/matches/984/champions-tour-emea-stage-2-challengers/?series_id=1931',
-               'https://www.vlr.gg/event/matches/984/champions-tour-emea-stage-2-challengers/?series_id=1932',
-               'https://www.vlr.gg/event/matches/800/champions-tour-north-america-stage-2-challengers/?series_id=1953',
-               'https://www.vlr.gg/event/matches/800/champions-tour-north-america-stage-2-challengers/?series_id=1561',
-               'https://www.vlr.gg/event/matches/884/champions-tour-asia-pacific-stage-1-challengers-playoffs/?series_id=1753',
-               'https://www.vlr.gg/event/matches/799/champions-tour-north-america-stage-1-challengers/?series_id=1559',
-               'https://www.vlr.gg/event/matches/799/champions-tour-north-america-stage-1-challengers/?series_id=1737',
-               'https://www.vlr.gg/event/matches/854/champions-tour-stage-1-emea-challengers/?series_id=1669',
-               'https://www.vlr.gg/event/matches/854/champions-tour-stage-1-emea-challengers/?series_id=1670'
-               ]
-
-class TokenGetter:
-    def __init__(self, links):
-        self.tokens = []
-        self.getTokens(links)
-
-    def getTokens(self, links):
-        if len(links) != 1:
-            self.tokens = [createToken(link) for link in links]
-        else:
-            self.tokens = [createToken(links[0])]
-
+from VLR_Match_Scrape import getTheStats
 
 def fillAtk(data, team):
     tbl = TBL_Stats_ATK(
@@ -162,10 +135,15 @@ def main():
 
     # create loop to get token set per match, not per event and commit on completion rather than a large chunk of tokens
     # wrap in a try: pass to avoid busted matches taking out an entire event
-
-    match_urls = rizzLinks(BASE_EVENTS[15])
-    tokens = TokenGetter(match_urls).tokens
-    insertIntoDB(tokens)
+    link = 'https://www.vlr.gg/event/matches/1169/red-bull-home-ground-3/?series_id=2267'
+    match_urls = rizzLinks(link)
+    tokens = []
+    for url in match_urls:
+        try:
+            tokens.append(getTheStats(url))
+        except:
+            print("url failed")
+    # insertIntoDB(tokens)
     return
 
 

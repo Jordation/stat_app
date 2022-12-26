@@ -36,3 +36,8 @@
 	- svelte graphing package 
 - [x] not using CRA 
 - typescript
+
+
+## dev diary entries !
+gonna try do this consistently for a bit to help keep track of my progress/development :)
+1. https://youtu.be/Q2DdABjnEaA

@@ -25,9 +25,6 @@ ZZZ = {
 }
 
 # some helper funcs
-def makeTitle(querey):
-    return "your graph title here"
-
 def findEnemy(row):
     if row.team == row.team1:
         return row.team2
@@ -117,10 +114,12 @@ def getValues(targets, session, bundled_rows):
     rows = select(bundled_rows).join(
         TBL_Map.winner, TBL_Map.id == bundled_rows.map_id)
     results = session.scalars(rows)
-    vals = []
+    d_vals = []
     for res in results:
-        vals.append({'l': vars(res)[targets['y']], 'v': vars(res)[targets['x']]})
-    return vals
+        row = vars(res)
+        del row['_sa_instance_state']
+        d_vals.append(row)
+    return d_vals
 
 
 def prepareForPlot():
@@ -135,9 +134,8 @@ def processQuerey(querey, session):
     
     bundled_rows = doFilters(querey['filters'], session, scope_bundled)
 
-    target_values = getValues(querey['targets'], session, bundled_rows)
-    title = makeTitle(querey)
-    return target_values
+    vals = getValues(querey['targets'], session, bundled_rows)
+    return vals
 
 
 
@@ -150,6 +148,10 @@ def valuesFromSTMT(stmt):
 
 
 def quereyRequest(querey):
+    
+    max_cols = int(querey['targets']['max_columns'])
+    sort_target = querey['targets']['x']
+    
     engine = create_engine(r"sqlite:///static/myScripts/the_database/test_db.db", echo=True, future=True)
     #engine = create_engine('sqlite:///the_database/test_db.db', echo=True, future=True)
 
@@ -157,9 +159,17 @@ def quereyRequest(querey):
     session = Session()
     vals = processQuerey(querey, session)
     session.close()
-    sorted_vals = sorted(vals, key=lambda x:x["v"], reverse=True)
-    max_cols = int(querey['targets']['max_columns'])
-    return sorted_vals[:max_cols]
+
+    
+    sorted_vals = sorted(vals, key=lambda x:x[sort_target], reverse=True)
+    
+    for item in vals:
+        item = dict(item)
+    
+    if len(vals) < max_cols:
+        return vals
+    else:
+        return vals[:max_cols]
 
 
 #if __name__ == "__main__":

@@ -12,6 +12,7 @@ import {
     PointElement,
   } from 'chart.js'
   import { Bar, Pie, Line } from "react-chartjs-2";
+
 const ModGraph = ({ data, options, ctype }) => {
 
     ChartJS.register(

@@ -34,7 +34,7 @@ def loadStats():
     querey = request.get_json(force=True)["querey"]
     print(querey)
     graph_data = quereyRequest(querey)
-    return graph_data
+    return jsonify(graph_data)
 
 if __name__ == '__main__':
     app.run()

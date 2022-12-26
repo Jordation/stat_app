@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react"
+import React, { useRef, useState } from "react"
 import { useForm } from "react-hook-form";
 import GraphZone from '../components/graphZone'
 import DefaultNav from '../components/defaultNav'
@@ -50,7 +50,7 @@ function formQuerey(inQuerey){
     return newQuerey;
 }
 
-function makeGraph(data){
+function makeGraph(data, title, graph_targets){
 
 	let entryData = data;
 	let cfg = {
@@ -58,7 +58,7 @@ function makeGraph(data){
 			labels: entryData.map(row => row.l),
 				datasets: [{
 					id: 1,
-					label: "data",
+					label: title,
 					data: entryData.map(row => row.v),
 					backgroundColor: 'rgba(255, 37, 102, 1)'
 					},
@@ -72,17 +72,20 @@ function makeGraph(data){
 
 export default function flexbox() {
 
+
+    const graph_targets = useRef({l: 1, x: 1})
     const {register,  handleSubmit } = useForm({});
     const [dataSets, setDataSets] = useState([])
+
     const onSubmit = data => {
-        console.log(formQuerey(data))
+        let querey = formQuerey(data);
         fetch('http://localhost:5000/loadStats',
-        {method: "POST", body: JSON.stringify({querey: formQuerey(data)})})
+        {method: "POST", body: JSON.stringify({querey: querey})})
         .then(response => response.json())
         .then(response => {
             console.log(response)
-            let newCFG = makeGraph(response);
-            setDataSets(() => [...dataSets, newCFG]) 
+            //let newCFG = makeGraph(response, querey.targets.x);
+            //setDataSets(() => [...dataSets, newCFG]) 
         }
     )
 }

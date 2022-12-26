@@ -62,7 +62,7 @@ return(
 	<div>
 		<GeneralButton onClick={onClick} btntext="clear graphs" />
 		<div className='Graph-Wrapper'>
-			{graphArr?.map(config => <ModGraph data={config.data} options={config.options} ctype={"bar"} />)}
+			{graphArr?.map(config => <ModGraph data={config.data} options={config.options} ctype={"bar"} targets={123}/>)}
 		</div>
 	</div>
 )

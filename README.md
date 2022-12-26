@@ -1,10 +1,11 @@
 # current to-do / goals
-- Multiple datasets
+- [ ] Multiple datasets
 	- User should be able to specify n queries, configure each and receieve a single graph with all unique datasets mapped to it (i.e. stacked/grouped bar chart)
-- Better queries 
+- [ ] Get some external feedback, need to reach out to more analysts/coaches 
+- [ ] Better queries 
 	- Just need to do more testing and figure out what feels good 
-- How the fuck do i use css
-- Better component structure
+- [ ] How the fuck do i use css
+- [ ] Better component structure
 	- My knowledge is growing so quickly as I learn these tools and I am in a constant state of wanting to overhaul, my components don't *fit* together very well and I want to re-structure them. 
 	- Figure out what needs to be grouped with what and who does NOT need to be grouped 
 		- Who needs props from who

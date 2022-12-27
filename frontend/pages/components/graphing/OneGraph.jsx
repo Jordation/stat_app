@@ -22,6 +22,7 @@ const default_options = {
 //      backgroundColor: 'rgba(255, 99, 132, 0.5)',
 
 
+//
 
 const OneGraph = ({ graph_config }) => {
 

@@ -7,23 +7,38 @@ import QuereyBox from '../components/quereyBox'
 
 // map length of datasets to id, label to target.x[n], data to target.x[n], backgroundColor: 'rgba(255, 37, 102, 1)' 
 
-function makeConfig(datasets, targets){
-	let config = {
+function rand_rgb() { // random number
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
+const makeDataSets = (rows, targets) => {
+    return targets.x.map((x_target, index) => {
+        return{
+        id: index,
+        label: x_target,
+        data: rows.map(row => row[x_target]),
+        backgroundColor: rand_rgb()
+        }
+    }
+)
+}
+
+function makeConfig(rows, targets){
+    console.log(rows)
+    let config = {
         data: {
-			labels: datasets[0].map(row => row[targets.y]),
-				datasets: datasets.map(
-                    (dataset, index) => { return {
-                        id: index,
-                        label: dataset.map(row => row[targets.comparitor]),
-                        backgroundColor: 'rgba(255, 37, 102, 1)',
-                        data: dataset.map(row => row[targets.x[index]]),
-                        }
-                    }
-                )
-			},
-		}
+            labels: rows.map(row => row[targets.y]),
+            datasets: makeDataSets(rows, targets),
+            },
+        }
     // eventually options config'd in here too, abstraction not final so its a default constant in other file 
-	return config;    
+    console.log(config)
+    return config;    
+
+
 }
 
 //
@@ -34,22 +49,24 @@ export default function Create() {
 
 
     const {register,  handleSubmit } = useForm({});
-    const [GraphConfig, setGraphConfig] = useState({})
+    const [GraphConfig, setGraphConfig] = useState([])
 
     const onSubmit = data => {
         let querey = formQuerey(data);
         fetch('http://localhost:5000/loadStats',
         {method: "POST", body: JSON.stringify({querey: querey})})
         .then(response => response.json())
-        .then(response => setGraphConfig(makeConfig(response))
-    )
-}
+        .then(response => console.log(response))
+        .then(response => setGraphConfig(makeConfig(response)))
+        .catch(error => console.error(error))
+    }
 
     const testerup = data => {
         fetch('http://localhost:5000/randQuerey',
         {method: "POST", body: JSON.stringify({querey: 'its a quazza'})})
         .then(response => response.json())
-        .then(response => console.log(response))
+        .then(response => setGraphConfig(makeConfig(response.rows, response.used_querey.targets)))
+        .catch(error => console.error(error))
     }
 
     const onclickPurge = () => {
@@ -68,7 +85,7 @@ export default function Create() {
         <div className='ExplanationText'><QuereyBox register={register} onSubmit={testerup} handleSubmit={handleSubmit}/></div>
         
         <div className="OneGraph">
-        {/* {GraphConfig && <OneGraph graph_config={GraphConfig} />} */}
+            <OneGraph graph_config={GraphConfig} />
         </div>
 
         <div className="OneGraph">

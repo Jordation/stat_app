@@ -1,10 +1,14 @@
 
-from event_scraper import rizzLinks
+# from event_scraper import rizzLinks
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from SQLA_Schema import TBL_Events, TBL_Match, TBL_Map, TBL_Stats, TBL_Stats_ATK, TBL_Stats_DEF
+# from SQLA_Schema import TBL_Events, TBL_Match, TBL_Map, TBL_Stats, TBL_Stats_ATK, TBL_Stats_DEF
 
-from VLR_Match_Scrape import getTheStats
+# from VLR_Match_Scrape import getTheStats
+
+from stat_api_scripts.event_scraper import rizzLinks
+from stat_api_scripts.SQLA_Schema import TBL_Events, TBL_Match, TBL_Map, TBL_Stats, TBL_Stats_ATK, TBL_Stats_DEF
+from stat_api_scripts.VLR_Match_Scrape import getTheStats
 
 def fillAtk(data, team):
     tbl = TBL_Stats_ATK(

@@ -1,28 +1,49 @@
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker, with_parent, aliased
-#from SQLA_Schema import TBL_Events, TBL_Match, TBL_Map, TBL_Stats, TBL_Stats_ATK, TBL_Stats_DEF
-from static.myScripts.SQLA_Schema import TBL_Events, TBL_Match, TBL_Map, TBL_Stats, TBL_Stats_ATK, TBL_Stats_DEF
-import os
+from stat_api_scripts.SQLA_Schema import TBL_Events, TBL_Match, TBL_Map, TBL_Stats, TBL_Stats_ATK, TBL_Stats_DEF
 
-ZZZ = {
+import random
+# funcs to deal with random q returns for testing - idk why this took me so long to make LMFAO - dumb cunt dumb cunt dumb cunt
+MAPS_NAMES = ['Ascent', 'Icebox', 'Fracture', 'Split', 'Breeze', 'Bind', 'Haven'] # pearl :^)
+AGENTS_NAMES = ['Astra', 'Breach', 'Brimstone', 'Chamber', 'Cypher', 
+                'Jett', 'Kay/O', 'Killjoy', 'Neon', 'Omen', 'Phoenix', 
+                'Raze', 'Reyna', 'Sage', 'Skye', 'Sova', 'Viper', 'Yoru']
+X_TARGETS_NAMES = ['k', 'd', 'a', 'kast', 'adr', 'acs', 'fb', 'fd']
+Y_TARGETS_NAMES = ['mapname']
+COMPARITOR_NAMES = ['player', 'team']
+def getRandomQuerey():
+    return {
     'scope': {
-        'all': False,
-        'from_event': 'Valorant Champions 2022',
+        'all': '',
+        'from_event': '',
         'from_series': '',
         'from_map': '',
-        'from_player': '',
+        'from_player': 'Derke, yay',
     },
     'filters': {
         'on_map': 'Icebox',
-        'on_agent': '',
+        'on_agent': 'Chamber',
         'on_team': '', 
     },
     'targets': {
-        'x': 'k',
-        'y': 'mapname',
-        'max_columns': 15
+        'x': randX(),
+        'y': randY(),
+        'comparitor': randComparitor(),
+        'max_columns': random.randint(5, 10)
     }
 }
+
+def randMap():
+    return random.choice(MAPS_NAMES)
+def randAgent():
+    return random.choice(AGENTS_NAMES)
+def randX():
+    return random.choice(X_TARGETS_NAMES)
+def randY():
+    return random.choice(Y_TARGETS_NAMES)
+def randComparitor():
+    return random.choice(COMPARITOR_NAMES)
+
 
 # some helper funcs
 def findEnemy(row):
@@ -36,6 +57,7 @@ def checkResultLen(iter):
 #
 
 def fromSeries(querey, session):
+
     stmt = select(TBL_Stats).join(
         TBL_Map, TBL_Map.id == TBL_Stats.map_id).join(
         TBL_Match, TBL_Match.id == TBL_Map.match_id).where(
@@ -56,9 +78,10 @@ def fromEvent(querey, session):
 
 
 def fromPlayer(querey, session):
+    print(querey['scope']['from_player'])
     stmt = select(TBL_Stats).join(
     TBL_Map, TBL_Map.id == TBL_Stats.map_id).where(
-        TBL_Stats.player == querey['scope']['from_player']).subquery()
+        TBL_Stats.player.in_(querey['scope']['from_player'].split(', '))).subquery()
     bundle = aliased(TBL_Stats, stmt)
     return bundle
 
@@ -122,9 +145,6 @@ def getValues(targets, session, bundled_rows):
     return d_vals
 
 
-def prepareForPlot():
-    pass
-
 
 def processQuerey(querey, session):
     if not querey['scope']['all']:
@@ -145,6 +165,28 @@ def valuesFromSTMT(stmt):
         return l[0]
     else:
         return l
+
+def randyMate():
+    querey = getRandomQuerey()
+    max_cols = int(querey['targets']['max_columns'])
+    sort_target = querey['targets']['x']
+    
+    engine = create_engine(r"sqlite:///static/myScripts/the_database/test_db.db", echo=True, future=True)
+    #engine = create_engine('sqlite:///the_database/test_db.db', echo=True, future=True)
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    
+    vals = processQuerey(querey, session)
+    session.close()
+
+    
+    for item in vals:
+        item = dict(item)
+    sorted_vals = sorted(vals, key=lambda x:x[sort_target], reverse=True)
+    if len(vals) < max_cols:
+        return sorted_vals
+    else:
+        return sorted_vals[:max_cols]
 
 
 def quereyRequest(querey):
@@ -173,4 +215,4 @@ def quereyRequest(querey):
 
 
 #if __name__ == "__main__":
-#    quereyRequest(ZZZ)
+#    quereyRequest(getRandomQuerey())

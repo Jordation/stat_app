@@ -5,13 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug but with the right folder",
+            "name": "Debug but pretend im flask",
             "type": "python",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "cwd":"${fileDirname}"
+            "cwd":"${workspaceFolder}/backend/"
         }
     ]
 }

@@ -30,42 +30,36 @@ function formQuerey(inQuerey){
             'from_player': '',
         },
         'filters': {
-            'on_map': '',
-            'on_agent': '',
-            'on_team': '',
+            'on_map': inQuerey.on_map,
+            'on_agent': inQuerey.on_agent,
+            'on_team': inQuerey.on_team,
         },
         'targets': {
-            'x': '',
-            'y': '',
-            'max_columns': ''
+            'x': inQuerey.x,
+            'y': inQuerey.y,
+            'max_columns': inQuerey.max_columns
         }
     }
     newQuerey.scope[inQuerey.scope_type] = inQuerey.scope_value;
-    newQuerey.filters.on_map = inQuerey.on_map;
-    newQuerey.filters.on_agent = inQuerey.on_agent;
-    newQuerey.filters.on_team = inQuerey.on_team;
-    newQuerey.targets.x = inQuerey.x;
-    newQuerey.targets.y = inQuerey.y;
-    newQuerey.targets.max_columns = inQuerey.max_columns;
     return newQuerey;
 }
 
-function makeGraph(data, title, graph_targets){
+function makeGraph(data, graph_targets){
 
-	let entryData = data;
 	let cfg = {
 		data: {
-			labels: entryData.map(row => row.l),
+			labels: data.map(row => row[graph_targets.y]),
 				datasets: [{
 					id: 1,
-					label: title,
-					data: entryData.map(row => row.v),
+					label: graph_targets.x,
+					data: data.map(row => row[graph_targets.x]),
 					backgroundColor: 'rgba(255, 37, 102, 1)'
 					},
 				],
 			},
 			options: options,
 		}	
+
 	return cfg;
 }
 
@@ -73,7 +67,6 @@ function makeGraph(data, title, graph_targets){
 export default function flexbox() {
 
 
-    const graph_targets = useRef({l: 1, x: 1})
     const {register,  handleSubmit } = useForm({});
     const [dataSets, setDataSets] = useState([])
 
@@ -82,14 +75,11 @@ export default function flexbox() {
         fetch('http://localhost:5000/loadStats',
         {method: "POST", body: JSON.stringify({querey: querey})})
         .then(response => response.json())
-        .then(response => {
-            console.log(response)
-            //let newCFG = makeGraph(response, querey.targets.x);
-            //setDataSets(() => [...dataSets, newCFG]) 
+        .then(response => { setDataSets(() => [...dataSets, makeGraph(response, querey.targets)]) 
         }
     )
 }
-    
+
 
     const onclickPurge = () => {
         setDataSets(() => [])

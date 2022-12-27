@@ -1,9 +1,8 @@
 from flask import Flask, jsonify
 from flask import request
 from flask_cors import CORS
-from static.myScripts.Format_MatchOBJ import createToken
-from static.myScripts.QuereyDB import quereyRequest
 
+from stat_api_scripts.QuereyDB import randyMate, quereyRequest
 app = Flask(__name__)
 CORS(app)
 app.config['JSON_SORT_KEYS'] = False
@@ -35,6 +34,13 @@ def loadStats():
     print(querey)
     graph_data = quereyRequest(querey)
     return jsonify(graph_data)
+
+
+@app.route('/randQuerey', methods=['POST'])
+def randQuerey():
+    newmate = request.get_json(force=True)["querey"]
+    print(newmate)
+    return jsonify(randyMate())
 
 if __name__ == '__main__':
     app.run()

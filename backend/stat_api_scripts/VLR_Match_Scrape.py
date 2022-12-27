@@ -277,6 +277,6 @@ def getTheStats(url):
     
     return token
 
-if __name__ == '__main__':
-    token = getTheStats('https://www.hltv.org/matches/2340000/tyloo-vs-tyloo-esea-mdl-season-34-north-america')
-    print(123)
+#if __name__ == '__main__':
+#    token = getTheStats('https://www.hltv.org/matches/2340000/tyloo-vs-tyloo-esea-mdl-season-34-north-america')
+#    print(123)

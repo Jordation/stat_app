@@ -14,7 +14,7 @@ import {
 } from 'chart.js'
 import { Bar, Pie, Line } from "react-chartjs-2";
 
-//
+
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -28,16 +28,6 @@ ChartJS.register(
     );
 
 
-
-
-const Graph = ( { options, data} ) => {
-
-
-return (
-    <div>
-        <Bar options={options} data={data} />;
-    </div>
-    )
-}
+const Graph = ( { options, data} ) => <Bar options={options} data={data} datasetIdKey="id"/>
 
 export default Graph

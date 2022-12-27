@@ -24,12 +24,14 @@ const default_options = {
 
 //
 
+
+//config contains .options (wip) and .data, these are ready to map 1:1 with a graph component 
 const OneGraph = ({ graph_config }) => {
 
 return (
     <div>
         <div><Querey /></div>
-        <div><Graph options={default_options} data={graph_config.data} /></div>
+        <div>{graph_config.data && <Graph options={default_options} data={graph_config.data} />}</div>
     </div>
 
     )

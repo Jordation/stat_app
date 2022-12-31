@@ -5,6 +5,7 @@ import GraphZone from '../components/graphZone'
 import DefaultNav from '../components/defaultNav'
 import DefaultHead from '../components/defaultHead'
 import QuereyBox from '../components/quereyBox'
+import TestingGraph from "../components/graphing/TestingGraph";
 
 const options = {
 	responsive: true,
@@ -64,22 +65,7 @@ function makeGraph(data, graph_targets){
 }
 
 
-export default function flexbox() {
-
-
-    const {register,  handleSubmit } = useForm({});
-    const [dataSets, setDataSets] = useState([])
-
-    const onSubmit = data => {
-        let querey = formQuerey(data);
-        fetch('http://localhost:5000/loadStats',
-        {method: "POST", body: JSON.stringify({querey: querey})})
-        .then(response => response.json())
-        .then(response => { setDataSets(() => [...dataSets, makeGraph(response, querey.targets)]) 
-        }
-    )
-}
-
+export default function PlayGround() {
 
     const onclickPurge = () => {
         setDataSets(() => [])
@@ -91,12 +77,21 @@ export default function flexbox() {
     <div>empty</div>
     <div>header text</div>
     <div>nav bar</div>
-    <div className='Querey-Explanation-Graphs'>
-        <div className='Querey-Zone'>
-            <QuereyBox register={register} onSubmit={onSubmit} handleSubmit={handleSubmit}/>
-            <div>explanation</div>
+    <div className='Explanation-Graphs'>
+        
+        
+        <div className="OneGraph">
+            <TestingGraph /> 
         </div>
-        {dataSets && <GraphZone graphs={dataSets} onClick={onclickPurge}/>}
+
+        <div className="OneGraph">
+        2
+        </div>
+
+        <div className="OneGraph">
+        3
+        </div>
+
     </div>
 </div>
 );}

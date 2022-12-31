@@ -2,8 +2,9 @@ from flask import Flask, jsonify
 from flask import request
 from flask_cors import CORS
 
-from stat_api_scripts.QuereyV2 import processQuerey, getRandomQuerey
+from stat_api_scripts.QuereyV2 import processQuerey
 from stat_api_scripts.QuereyDB import randyMate, quereyRequest
+
 app = Flask(__name__)
 CORS(app)
 app.config['JSON_SORT_KEYS'] = False
@@ -40,10 +41,9 @@ def loadStats():
 @app.route('/randQuerey', methods=['POST'])
 def randQuerey():
     print(request.get_json(force=True)["querey"])
-    q = getRandomQuerey()
-    res = jsonify(
-        {'rows': processQuerey(q),
-        'used_querey': q})
+    res = {
+        '1': '123'
+    }
 
     return res
 

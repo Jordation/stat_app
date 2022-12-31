@@ -1,9 +1,7 @@
 import React, { useRef, useState } from "react"
 import { useForm } from "react-hook-form";
 import Graph from "./Graph";
-import Querey from "./Querey";
-
-
+import ComparativeQuerey from "./ComparativeQuerey";
 
 const default_options = {
     responsive: true,
@@ -30,7 +28,7 @@ const OneGraph = ({ graph_config }) => {
 
 return (
     <div>
-        <div><Querey /></div>
+        <div><ComparativeQuerey text="Querey! of comparison" /></div>
         <div>{graph_config.data && <Graph options={default_options} data={graph_config.data} />}</div>
     </div>
 

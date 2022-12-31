@@ -28,6 +28,6 @@ ChartJS.register(
     );
 
 
-const Graph = ( { options, data} ) => <Bar options={options} data={data} datasetIdKey="id"/>
+const Graph = ( { options, data, plugins} ) => <Bar options={options} data={data} plugins={plugins} datasetIdKey="id"/>
 
 export default Graph

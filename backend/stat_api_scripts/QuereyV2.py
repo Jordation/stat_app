@@ -13,14 +13,14 @@ USEQ= {
         
         'transform': {
             'process': 'ave', #randProcess()
-            'p_target': 'mapname, player' # needs to be able to do multiple, group by player and map i.e. kills chamber ascent 
+            'p_target': 'mapname, agent' # needs to be able to do multiple, group by player and map i.e. kills chamber ascent 
         },
         
         'reqs': {
-            'on_mapname': '',
-            'on_agent': 'Chamber',
+            'on_mapname': 'Icebox, Ascent, Breeze',
+            'on_agent': 'Chamber, Jett, Raze, Phoenix, Reyna, Yoru',
             'on_team': '',
-            'on_player': 'yay, f0rsakeN, Derke', # well yeah i had to ok
+            'on_player': '', # well yeah i had to ok
         },
         'side': 'combined'
     }
@@ -117,8 +117,8 @@ def randYComp():
 def SQLfromSplit(value, keyStr):
     retStr = ''
     for val in value.split(', '):
-        retStr += "OR " + keyStr + " == \"" + val + "\" "
-    return retStr[3:] # removes first OR, so i dont need to remove the last
+        retStr += " OR " + keyStr + " == \"" + val + "\""
+    return '('+retStr[3:]+')' # removes first OR, so i dont need to remove the last
 
 def SQLfromQuereyRequirements(quereyReqs, side):
     
@@ -126,15 +126,14 @@ def SQLfromQuereyRequirements(quereyReqs, side):
     filterStr = ""
     
     for key, value in quereyReqs.items():
-        if value == '':
+        if value == '': # if the querey type wasnt entered 
             continue
-        keyStr = str(key).split('on_')[1]
-        filterStr += ("AND " + SQLfromSplit(value, keyStr))
-    sql_stmt += filterStr[4:-1] + ';'
-    print(f'{sql_stmt=}')
-    return sql_stmt
+        keyStr = str(key).split('on_')[1]                   # "SELECT * FROM player_stats_SIDE WHERE
+        filterStr += (" AND " + SQLfromSplit(value, keyStr)) # combines filter type and inputs as (AND) "FILTER == "VALUE" OR "
+    sql_stmt += filterStr[4:] + ';' #"SELECT * FROM player_stats_SIDE WHERE ((AND) ("FILTER == "VALUE" OR ")) - remove first and with some list slices
+    return sql_stmt #"SELECT * FROM player_stats_SIDE WHERE (("FILTER == "VALUE" OR )"AND)
 
-def SortRows(vals, reverse: bool): # sorts by each dict (x) key 'title', if reverse true, sorts with highest value first (z-a, 100-0 
+def SortRows(vals, reverse: bool): # sorts by each dict (x) key 'title', if reverse true, sorts with highest value first (z-a, 100-0)
     return sorted(vals, key=lambda x:x['title'], reverse=reverse)
 
 def processQuerey(querey):
@@ -142,7 +141,7 @@ def processQuerey(querey):
     engine = create_engine(r"sqlite:///stat_api_scripts/the_database/test_db.db", echo=True, future=True)
     Session = sessionmaker(bind=engine)
     session = Session()
-    session.close()
+
     SQL_Stmt = SQLfromQuereyRequirements(querey['reqs'], querey['side'])
     
     result_rows = session.execute(text(SQL_Stmt))
@@ -152,9 +151,11 @@ def processQuerey(querey):
         rows_as_dicts.append(dict(res._mapping))
         
     transformed_rows = doTransform(rows_as_dicts, querey['transform'])
+    #takes rows from filter set and groups by inputs, can average/over inputs or other / /
+    
     
     ordered_rows = SortRows(transformed_rows, False)
-    
+    session.close()
     return {'data': transformed_rows}
 
 

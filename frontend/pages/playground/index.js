@@ -1,10 +1,8 @@
 
 import React, { useRef, useState } from "react"
-import { useForm } from "react-hook-form";
-import GraphZone from '../components/graphZone'
-import DefaultNav from '../components/defaultNav'
+
 import DefaultHead from '../components/defaultHead'
-import QuereyBox from '../components/quereyBox'
+
 import TestingGraph from "../components/graphing/TestingGraph";
 
 const options = {
@@ -71,6 +69,19 @@ export default function PlayGround() {
         setDataSets(() => [])
     }
 
+    const fakeQuerey = () => {
+        fetch('http://localhost:5000/randQuerey',
+        {method: "POST", body: JSON.stringify({querey: 'its a quazza'})})
+            .then(response => response.json())
+            .then(response => {
+            console.log(response.data)
+            set_data_return(response.data)
+            }
+        )
+    }
+
+    const [data_return, set_data_return] = useState(null)
+
     return(
 <div className='PageWrapper'>
     <DefaultHead />
@@ -81,11 +92,11 @@ export default function PlayGround() {
         
         
         <div className="OneGraph">
-            <TestingGraph /> 
+            {data_return && <TestingGraph data={data_return}/> }
         </div>
 
         <div className="OneGraph">
-        2
+            <button onClick={fakeQuerey}>clicketh</button>
         </div>
 
         <div className="OneGraph">

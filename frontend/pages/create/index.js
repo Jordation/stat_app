@@ -7,7 +7,7 @@ import QuereyBox from '../components/quereyBox'
 
 // map length of datasets to id, label to target.x[n], data to target.x[n], backgroundColor: 'rgba(255, 37, 102, 1)' 
 
-function rand_rgb() { // random number
+function rand_rgb() { // random colour
     let r = Math.floor(Math.random() * 256);
     let g = Math.floor(Math.random() * 256);
     let b = Math.floor(Math.random() * 256);

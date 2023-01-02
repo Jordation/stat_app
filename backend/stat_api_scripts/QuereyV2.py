@@ -8,19 +8,21 @@ import random
 USEQ= {
         'graph_dimensions': {
             'y': 'mapname',  #randYComp()
-            'x': 'k, acs, fb, hsp'
+            'x': 'k, acs, fb, hsp',
+            'dataset_group_by': 'player',
+            'stack_group_by': '',
         },
         
         'transform': {
             'process': 'ave', #randProcess()
-            'p_target': 'mapname, agent' # needs to be able to do multiple, group by player and map i.e. kills chamber ascent 
+            'p_target': 'mapname, player' # needs to be able to do multiple, group by player and map i.e. kills chamber ascent 
         },
         
         'reqs': {
-            'on_mapname': 'Icebox, Ascent, Breeze',
-            'on_agent': 'Chamber, Jett, Raze, Phoenix, Reyna, Yoru',
-            'on_team': '',
-            'on_player': '', # well yeah i had to ok
+            'on_mapname': '',
+            'on_agent': 'Chamber',
+            'on_team': 'Paper Rex, OpTic Gaming, DRX, FNATIC',
+            'on_player': 'f0rsakeN, yay, BuZz, Derke', # well yeah i had to ok
         },
         'side': 'combined'
     }
@@ -62,11 +64,11 @@ def avgNumbersFromDicts(dicts):
 
 def makeGroupedTitle(row, targets):
     targs = targets.split(', ')
-    ret = ""
+    ret = []
     for targ in targs:
-        ret += row[targ] + " "
+        ret.append(row[targ])
         
-    return ret[:-1]
+    return ret
 
 def averageRowsByGroup(grouped_rows):
 
@@ -133,11 +135,48 @@ def SQLfromQuereyRequirements(quereyReqs, side):
     sql_stmt += filterStr[4:] + ';' #"SELECT * FROM player_stats_SIDE WHERE ((AND) ("FILTER == "VALUE" OR ")) - remove first and with some list slices
     return sql_stmt #"SELECT * FROM player_stats_SIDE WHERE (("FILTER == "VALUE" OR )"AND)
 
-def SortRows(vals, reverse: bool): # sorts by each dict (x) key 'title', if reverse true, sorts with highest value first (z-a, 100-0)
-    return sorted(vals, key=lambda x:x['title'], reverse=reverse)
+def SortRows(vals, reverse: bool, order_target_index): # sorts by each dict (x) key 'title', if reverse true, sorts with highest value first (z-a, 100-0)
+    return sorted(vals, key=lambda x:x['title'][order_target_index], reverse=reverse)
 
-def processQuerey(querey):
+def GroupRows(rows, group_target_index):
+    grouped_dict = {}
+    for row in rows:
+        if row['title'][group_target_index] not in grouped_dict:
+            grouped_dict[row['title'][group_target_index]] = {'group': row['title'][group_target_index], 'data': [row['data']]}
+        else: grouped_dict[row['title'][group_target_index]]['data'].append(row['data'])
 
+    return [value for key, value in grouped_dict.items()]
+
+
+def findMostCompleteSet(datasets):
+    max_set_size = 0
+    for x in datasets:
+        set_len =  len(x['data'])
+        if set_len > max_set_size:
+            max_set_size = set_len
+            complete_dataset = x
+    return complete_dataset
+
+def prepareDatasets(dataset_key, label_key, data):
+    complete_dataset = findMostCompleteSet(data)
+
+    labels = [x[label_key] for x in complete_dataset['data']]
+
+    for group in data:
+        for index, label in enumerate(labels):
+            try:
+                if group['data'][index][label_key] == label:
+                    continue
+                else: group['data'].insert(index, None)
+            except: group['data'].insert(index, None)
+        
+
+
+    return {'data': data, 'labels': labels}
+
+
+def processQuerey():
+    querey = USEQ
     engine = create_engine(r"sqlite:///stat_api_scripts/the_database/test_db.db", echo=True, future=True)
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -154,11 +193,13 @@ def processQuerey(querey):
     #takes rows from filter set and groups by inputs, can average/over inputs or other / /
     
     
-    ordered_rows = SortRows(transformed_rows, False)
+    ordered_rows = SortRows(transformed_rows, False, 0) # should order by the labels target value so a full size set can be mapped correctly
+    grouped_rows = GroupRows(ordered_rows, 1)
+    datasets = prepareDatasets(querey['graph_dimensions']['dataset_group_by'], 'mapname', grouped_rows)
     session.close()
-    return {'data': transformed_rows}
+    return {'data': datasets}
 
 
 if __name__ == '__main__':
-    processQuerey(USEQ)
+    processQuerey()
     

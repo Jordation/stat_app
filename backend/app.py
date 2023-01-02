@@ -41,11 +41,9 @@ def loadStats():
 @app.route('/randQuerey', methods=['POST'])
 def randQuerey():
     print(request.get_json(force=True)["querey"])
-    res = {
-        '1': '123'
-    }
+    res = processQuerey()
 
-    return res
+    return jsonify(res)
 
 if __name__ == '__main__':
     app.run()

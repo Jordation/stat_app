@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react"
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import Graph from "./Graph";
 import ComparativeQuerey from "./ComparativeQuerey";
 import RadarGraph from "./RadarGraph";
@@ -13,6 +13,13 @@ export const CHART_COLORS = {
     purple: 'rgba(153, 102, 255, .7)',
     grey: 'rgba(201, 203, 207, .7)'
 };
+
+function rand_rgb() { // random colour
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+    return `rgb(${r}, ${g}, ${b})`;
+}
 
 const plugin = {
     id: 'customCanvasBackgroundColor',
@@ -28,7 +35,6 @@ const plugin = {
 
 const default_options = {
     plugins: {
-        color: '#fff',
         subtitle: {
             display: true,
             text: 'Custom Chart Subtitle',
@@ -46,7 +52,7 @@ const default_options = {
             text: 'STACKS',
         },
         customCanvasBackgroundColor:{
-            color: 'darkblue',
+            color: '#333333',
         },
     },
     scales: {
@@ -66,31 +72,54 @@ const default_options = {
 
 
 const testing_data = {
-    labels: ['k', 'd', 'a',],
+    labels: ['one', 'two', 'three'],
     datasets: [
         {
             id: 1,
-            label: 'p1',
-            data: [25,12,8],
-            backgroundColor: CHART_COLORS.red,
-            color: '#ffffff'
+            label: 'one',
+            data: [1,2,3],
+            backgroundColor: 'red',
         },
         {
             id: 2,
-            label: 'p2',
-            data: [32,18,2],
-            backgroundColor: CHART_COLORS.green,
-            color: '#ffffff'
+            label: 'two',
+            data: [3,2,1],
+            backgroundColor: 'blue',
         },
     ]
 }
 
-const TestingGraph = ({  }) => {
+
+
+
+
+function CreateGraphData(data){
+    let datasets = data.data.map(
+        (set, index) => {
+            return {
+                id: index,
+                label: set.group,
+                data: set.data.map(item => !item ? item?.k : 0),
+                backgroundColor: rand_rgb()
+            }
+        }
+    )
+
+    return {
+        labels: data.labels,
+        datasets: datasets
+    }
+
+}
+
+const TestingGraph = ({ data }) => {
+
+    const [graph_data, set_graph_data] = useState(CreateGraphData(data))
 
 return (
     <div>
         <div>THIS IS A TESTING COMPONENT!</div>
-        <div><Graph options={default_options} data={testing_data} plugins={[plugin]}/></div>
+        <div>{data && <Graph options={default_options} data={graph_data} plugins={[plugin]}/>}</div>
     </div>
 
     )

@@ -4,7 +4,20 @@ from sqlalchemy.orm import sessionmaker, with_parent, aliased, Bundle
 from SQLA_Schema import TBL_Events, TBL_Match, TBL_Map, TBL_Stats, TBL_Stats_ATK, TBL_Stats_DEF
 #from static.myScripts.SQLA_Schema import TBL_Events, TBL_Match, TBL_Map, TBL_Stats, TBL_Stats_ATK, TBL_Stats_DEF
 
+#########################################
+# server side querey processing testing #
+
 import random
+
+MAPS_NAMES = ['Ascent', 'Icebox', 'Fracture', 'Split', 'Breeze', 'Bind', 'Haven'] # pearl :^)
+AGENTS_NAMES = ['Astra', 'Breach', 'Brimstone', 'Chamber', 'Cypher', 
+                'Jett', 'Kay/O', 'Killjoy', 'Neon', 'Omen', 'Phoenix', 
+                'Raze', 'Reyna', 'Sage', 'Skye', 'Sova', 'Viper', 'Yoru']
+NUMBER_TARGETS = ['acs', 'k', 'd', 'a', 'kast', 'adr', 'hsp', 'fb', 'fd']
+PROCESS_TARGETS = ['player', 'mapename', 'agent']
+Y_OPTIONS = []
+X_OPTIONS = ['k','d', 'a',]
+
 USEQ= {
         'graph_dimensions': {
             'y': 'mapname',  #randYComp()
@@ -15,7 +28,7 @@ USEQ= {
         
         'transform': {
             'process': 'ave', #randProcess()
-            'p_target': 'mapname, player' # needs to be able to do multiple, group by player and map i.e. kills chamber ascent 
+            'p_target': 'mapname, player' 
         },
         
         'reqs': {
@@ -26,6 +39,10 @@ USEQ= {
         },
         'side': 'combined'
     }
+
+
+
+
 # funcs to deal with random q returns for testing - idk why this took me so long to make LMFAO - dumb cunt dumb cunt dumb cunt
 MAPS_NAMES = ['Ascent', 'Icebox', 'Fracture', 'Split', 'Breeze', 'Bind', 'Haven'] # pearl :^)
 AGENTS_NAMES = ['Astra', 'Breach', 'Brimstone', 'Chamber', 'Cypher', 
@@ -100,22 +117,6 @@ def doTransform(rows, q_transforms):
     
     return averaged_data 
     
-
-
-def randProcess():
-    return random.choice(COMP_PROCEEZE)
-def randMap():
-    return random.choice(MAPS_NAMES)
-def randAgent():
-    return random.choice(AGENTS_NAMES)
-def randX():
-    return random.choice(X_TARGETS_NAMES)
-def randY():
-    return random.choice(Y_TARGETS_NAMES)
-def randYComp():
-    return random.choice(Y_COMP_TARGETS_NAMES)
-
-
 def SQLfromSplit(value, keyStr):
     retStr = ''
     for val in value.split(', '):

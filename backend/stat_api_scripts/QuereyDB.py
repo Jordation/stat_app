@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker, with_parent, aliased
 from SQLA_Schema import TBL_Events, TBL_Match, TBL_Map, TBL_Stats, TBL_Stats_ATK, TBL_Stats_DEF
 
 import random
+
 # funcs to deal with random q returns for testing - idk why this took me so long to make LMFAO - dumb cunt dumb cunt dumb cunt
 MAPS_NAMES = ['Ascent', 'Icebox', 'Fracture', 'Split', 'Breeze', 'Bind', 'Haven'] # pearl :^)
 AGENTS_NAMES = ['Astra', 'Breach', 'Brimstone', 'Chamber', 'Cypher', 
@@ -18,11 +19,11 @@ def getRandomQuerey():
         'from_event': '',
         'from_series': '',
         'from_map': '',
-        'from_player': 'Derke, yay',
+        'from_player': '',
     },
     'filters': {
-        'on_map': 'Icebox',
-        'on_agent': 'Chamber',
+        'on_map': '',
+        'on_agent': '',
         'on_team': '', 
     },
     'targets': {
@@ -33,16 +34,16 @@ def getRandomQuerey():
     }
 }
 
-def randMap():
-    return random.choice(MAPS_NAMES)
-def randAgent():
-    return random.choice(AGENTS_NAMES)
-def randX():
-    return random.choice(X_TARGETS_NAMES)
-def randY():
-    return random.choice(Y_TARGETS_NAMES)
-def randComparitor():
-    return random.choice(COMPARITOR_NAMES)
+def randMap(amount):
+    return random.choice(MAPS_NAMES, k=amount)
+def randAgent(amount):
+    return random.choice(AGENTS_NAMES, k=amount)
+def randX(amount):
+    return random.choice(X_TARGETS_NAMES, k=amount)
+def randY(amount):
+    return random.choice(Y_TARGETS_NAMES, k=amount)
+def randComparitor(amount):
+    return random.choice(COMPARITOR_NAMES, k=amount)
 
 
 # some helper funcs

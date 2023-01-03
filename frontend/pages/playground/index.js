@@ -83,29 +83,31 @@ export default function PlayGround() {
     const [data_return, set_data_return] = useState(null)
 
     return(
-<div className='PageWrapper'>
-    <DefaultHead />
-    <div>empty</div>
-    <div>header text</div>
-    <div>nav bar</div>
-    <div className='Explanation-Graphs'>
+    <div className='PageWrapper'>
+        <DefaultHead />
+        <div>empty</div>
+        <div>header text</div>
+        <div>nav bar</div>
         
-        
-        <div className="OneGraph">
-            {data_return && <TestingGraph data={data_return}/> }
+        <div className="GraphArea">
+        <div className="CustomGraphRow">
+                <div className="CustomGraph">{data_return && <TestingGraph data={data_return}/> }</div>
+                <div className="CustomQuerey"><button onClick={fakeQuerey}>clicketh</button></div>
+            </div>
+            <div className="CustomGraphRow">
+                <div className="CustomGraph">{data_return && <TestingGraph data={data_return}/> }</div>
+                <div className="CustomQuerey"><button onClick={fakeQuerey}>clicketh</button></div>
+            </div>
+            <div className="CustomGraphRow">
+                <div className="CustomGraph">{data_return && <TestingGraph data={data_return}/> }</div>
+                <div className="CustomQuerey"><button onClick={fakeQuerey}>clicketh</button></div>
+            </div>
+            <div className="CustomGraphRow">
+                <div className="CustomGraph">{data_return && <TestingGraph data={data_return}/> }</div>
+                <div className="CustomQuerey"><button onClick={fakeQuerey}>clicketh</button></div>
+            </div>
         </div>
-
-        <div className="OneGraph">
-            <button onClick={fakeQuerey}>clicketh</button>
-        </div>
-
-        <div className="OneGraph">
-        3
-        </div>
-
     </div>
-</div>
 );}
-
 
 

@@ -57,10 +57,13 @@ const default_options = {
     },
     scales: {
         x: {
-            ticks: {color: "#fff",}
+            ticks: {color: "#fff"},
+            grid: { color: "#fff" }
         },
         y: {
-            ticks: {color: "#fff",}
+            ticks: {color: "#fff"},
+            grid: { color: "#fff" },
+            linewidth: 10
         }
     },
     responsive: true,
@@ -91,15 +94,17 @@ const testing_data = {
 
 
 
-
+function makelabel(group) {
+    
+}
 
 function CreateGraphData(data){
     let datasets = data.data.map(
         (set, index) => {
             return {
                 id: index,
-                label: set.group,
-                data: set.data.map(item => !item ? item?.k : 0),
+                label: set.dataset,
+                data: set.data.map(item => item?.fd),
                 backgroundColor: rand_rgb()
             }
         }
@@ -117,11 +122,7 @@ const TestingGraph = ({ data }) => {
     const [graph_data, set_graph_data] = useState(CreateGraphData(data))
 
 return (
-    <div>
-        <div>THIS IS A TESTING COMPONENT!</div>
-        <div>{data && <Graph options={default_options} data={graph_data} plugins={[plugin]}/>}</div>
-    </div>
-
+        <Graph options={default_options} data={graph_data} plugins={[plugin]}/>
     )
 }
 

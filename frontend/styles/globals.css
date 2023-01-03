@@ -1,6 +1,6 @@
 
 div{
-  outline: 1px solid;
+  outline: solid 1px;
   outline-color: black
 } 
 :root {
@@ -13,8 +13,8 @@ div{
 
 .PageWrapper{
   display: grid;
-  grid-template-columns: 12rem calc(100vi - 12rem);
-  grid-template-rows: 8rem calc(100vb - 8rem);
+  grid-template-columns: 12rem calc(100vw - 24rem);
+  grid-template-rows: 8rem calc(100vw - 12rem);
 }
 
 .IsText{
@@ -28,41 +28,42 @@ div{
   column-gap: 1rem;
   row-gap: 1rem;
 }
-.Explanation-Graphs{
+
+.PopoutForm{
+  position: absolute;
+  width: 50vw;
+  height:50vh;
+  justify-self: center;
+  align-self: center;
+  background-color: red;
+  color: yellow;
+}
+
+
+.GraphArea{
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: auto;
+}
+
+.CustomGraphRow{
+  height: 70vh;
+  display: grid;
+  grid-template-columns: 1fr 15rem;
   column-gap: 1rem;
-  row-gap: 1rem;
-  grid-auto-flow: row;
+  padding: 1rem;
 }
-
-.ExplanationText{
-  grid-row: span 1 / span 1;
-  grid-column: span 1 / span 1;
+.CustomGraph{
+  display: grid;
 }
-
-.GraphsSittingHere{
-  background-color: --bg-colour-darker;
+.CustomQuerey{
+  display: grid;
 }
-
-.OneGraph{
-  height: calc(100% - 3rem);
-  width: calc(100% - 3rem);
-  grid-row: span 1 / span 1;
-  grid-column: span 1 / span 1;
-}
-
 .Querey-Zone{
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
-
-
 .Querey-Box{
   display: grid;
-;
 }
 
 .Form-Item {

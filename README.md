@@ -12,7 +12,10 @@
 	
 
 
-
+## dev diary entries !
+gonna try do this consistently for a bit to help keep track of my progress/development :)
+1. https://youtu.be/Q2DdABjnEaA
+2. https://youtu.be/76l92mEsafI
 
 
 
@@ -38,6 +41,3 @@
 - typescript
 
 
-## dev diary entries !
-gonna try do this consistently for a bit to help keep track of my progress/development :)
-1. https://youtu.be/Q2DdABjnEaA

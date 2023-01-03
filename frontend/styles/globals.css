@@ -29,7 +29,15 @@ div{
   row-gap: 1rem;
 }
 
-
+.PopoutForm{
+  position: absolute;
+  width: 50vw;
+  height:50vh;
+  justify-self: center;
+  align-self: center;
+  background-color: red;
+  color: yellow;
+}
 
 
 .GraphArea{

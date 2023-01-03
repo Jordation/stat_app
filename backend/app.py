@@ -38,6 +38,13 @@ def loadStats():
     return jsonify(graph_data)
 
 
+@app.route('/t3appa', methods=['POST'])
+def t3appa():
+    print(request.get_json(force=True)['data'])
+    
+    return jsonify({'data': 'plugged and played'})
+
+
 @app.route('/randQuerey', methods=['POST'])
 def randQuerey():
     print(request.get_json(force=True)["querey"])

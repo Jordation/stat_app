@@ -4,7 +4,8 @@ import React, { useRef, useState } from "react"
 import DefaultHead from '../components/defaultHead'
 
 import TestingGraph from "../components/graphing/TestingGraph";
-
+import PopoutForm from "../components/FullCustomGraph/PopoutForm";
+import FullCustomGraph from "../components/FullCustomGraph/FullCustomGraph";
 const options = {
 	responsive: true,
     scaleFontColor: "#000000",
@@ -65,22 +66,6 @@ function makeGraph(data, graph_targets){
 
 export default function PlayGround() {
 
-    const onclickPurge = () => {
-        setDataSets(() => [])
-    }
-
-    const fakeQuerey = () => {
-        fetch('http://localhost:5000/randQuerey',
-        {method: "POST", body: JSON.stringify({querey: 'its a quazza'})})
-            .then(response => response.json())
-            .then(response => {
-            console.log(response.data)
-            set_data_return(response.data)
-            }
-        )
-    }
-
-    const [data_return, set_data_return] = useState(null)
 
     return(
     <div className='PageWrapper'>
@@ -90,22 +75,9 @@ export default function PlayGround() {
         <div>nav bar</div>
         
         <div className="GraphArea">
-        <div className="CustomGraphRow">
-                <div className="CustomGraph">{data_return && <TestingGraph data={data_return}/> }</div>
-                <div className="CustomQuerey"><button onClick={fakeQuerey}>clicketh</button></div>
-            </div>
-            <div className="CustomGraphRow">
-                <div className="CustomGraph">{data_return && <TestingGraph data={data_return}/> }</div>
-                <div className="CustomQuerey"><button onClick={fakeQuerey}>clicketh</button></div>
-            </div>
-            <div className="CustomGraphRow">
-                <div className="CustomGraph">{data_return && <TestingGraph data={data_return}/> }</div>
-                <div className="CustomQuerey"><button onClick={fakeQuerey}>clicketh</button></div>
-            </div>
-            <div className="CustomGraphRow">
-                <div className="CustomGraph">{data_return && <TestingGraph data={data_return}/> }</div>
-                <div className="CustomQuerey"><button onClick={fakeQuerey}>clicketh</button></div>
-            </div>
+
+        <FullCustomGraph />
+
         </div>
     </div>
 );}

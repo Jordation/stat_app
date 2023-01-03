@@ -103,7 +103,7 @@ function CreateGraphData(data){
         (set, index) => {
             return {
                 id: index,
-                label: set.group,
+                label: set.dataset,
                 data: set.data.map(item => item?.fd),
                 backgroundColor: rand_rgb()
             }

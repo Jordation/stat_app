@@ -17,7 +17,7 @@ X_OPTIONS = ['k','d', 'a',]
 
 USEQ= {
     'graph_shape': { # i think this one can eventually stay off the server and just control chartjs stuff
-        'y': '',
+        'y': 'mapname',
         'x': '',
         'dataset_group_by': 'team',
         'stack_group_by': '',
@@ -36,8 +36,6 @@ USEQ= {
     'side': 'combined',
     'col_limit': 5,
 }
-
-
 
 # funcs to deal with random q returns for testing - idk why this took me so long to make LMFAO - dumb cunt dumb cunt dumb cunt
 MAPS_NAMES = ['Ascent', 'Icebox', 'Fracture', 'Split', 'Breeze', 'Bind', 'Haven'] # pearl :^)
@@ -163,7 +161,7 @@ def findMostCompleteSet(datasets):
             complete_dataset = x
     return complete_dataset
 
-def prepareDatasets(label_key, data):
+def prepareDatasets(x_key, label_key, data):
     complete_dataset = findMostCompleteSet(data)
 
     labels = [x[label_key] for x in complete_dataset['data']]
@@ -179,7 +177,7 @@ def prepareDatasets(label_key, data):
         
 
 
-    return {'data': data, 'labels': labels}
+    return {'data': data, 'labels': labels, 'x_val': x_key}
 
 def findProcessOrder(processes):
     d = {}
@@ -195,8 +193,7 @@ def getRowsAsDicts(session, SQL_Stmt):
     result_rows = session.execute(text(SQL_Stmt))
     return [dict(x._mapping) for x in result_rows]
 
-def processQuerey():
-    querey = USEQ
+def processQuerey(querey):
     SQL_Stmt = SQLfromQuereyRequirements(querey['row_reqs'], querey['side'])
     
     session = getSession()
@@ -208,10 +205,10 @@ def processQuerey():
     data_process_order = findProcessOrder(querey['data_shape']['group_targets'].split(', ')) # find correct index to use for dataset grouping
     dataset_target_index = data_process_order[querey['graph_shape']['dataset_group_by']]
     order_by_target_index = data_process_order[querey['data_shape']['order_by']]
-    ordered_rows = SortRows(transformed_rows, False, dataset_target_index) # should order by the labels target value so a full size set can be mapped correctly
+    ordered_rows = SortRows(transformed_rows, False, order_by_target_index) # should order by the labels target value so a full size set can be mapped correctly
     grouped_rows = GroupRows(ordered_rows, dataset_target_index)
     
-    datasets = prepareDatasets('mapname', grouped_rows)
+    datasets = prepareDatasets(querey['graph_shape']['x'], 'mapname', grouped_rows)
     
     return {'data': datasets}
 

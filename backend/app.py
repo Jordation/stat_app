@@ -3,8 +3,6 @@ from flask import request
 from flask_cors import CORS
 
 from stat_api_scripts.QuereyV2 import processQuerey
-from stat_api_scripts.QuereyDB import randyMate, quereyRequest
-
 app = Flask(__name__)
 CORS(app)
 app.config['JSON_SORT_KEYS'] = False
@@ -29,12 +27,13 @@ def returnXY(fields, data):
 
 
 
-@app.route('/loadStats', methods=['POST'])
-def loadStats():
+@app.route('/processQuereyFromClient', methods=['POST'])
+def processQuereyFromClient():
     
     querey = request.get_json(force=True)["querey"]
     print(querey)
-    graph_data = quereyRequest(querey)
+    graph_data = processQuerey(querey)
+    
     return jsonify(graph_data)
 
 

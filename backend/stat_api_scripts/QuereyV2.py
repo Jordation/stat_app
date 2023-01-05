@@ -1,51 +1,20 @@
 from sqlalchemy import create_engine, select, text
 from sqlalchemy.orm import sessionmaker
+from pprint import pprint
 
 #########################################
 # server side querey processing testing #
 
 import random
 
-MAPS_NAMES = ['Ascent', 'Icebox', 'Fracture', 'Split', 'Breeze', 'Bind', 'Haven'] # pearl :^)
-AGENTS_NAMES = ['Astra', 'Breach', 'Brimstone', 'Chamber', 'Cypher', 
-                'Jett', 'Kay/O', 'Killjoy', 'Neon', 'Omen', 'Phoenix', 
-                'Raze', 'Reyna', 'Sage', 'Skye', 'Sova', 'Viper', 'Yoru']
-NUMBER_TARGETS = ['acs', 'k', 'd', 'a', 'kast', 'adr', 'hsp', 'fb', 'fd']
-PROCESS_TARGETS = ['player', 'mapename', 'agent']
-Y_OPTIONS = []
-X_OPTIONS = ['k','d', 'a',]
-
-USEQ= {
-    'graph_shape': { # i think this one can eventually stay off the server and just control chartjs stuff
-        'y': 'mapname',
-        'x': '',
-        'dataset_group_by': 'team',
-        'stack_group_by': '',
-    },
-    'data_shape': {
-        'group_effect': 'average_over', # not in-use
-        'group_targets': 'team, mapname',
-        'order_by': 'team'
-    },
-    'row_reqs': {
-        'on_mapname': '',
-        'on_agent': 'Sova',
-        'on_team': 'Paper Rex, OpTic Gaming, DRX, FNATIC',
-        'on_player': '', 
-    },
-    'side': 'combined',
-    'col_limit': 5,
+USEQ= { 
+# ideally i would like to use exclusively the frontend 
+# for sending test quereies, I keep creating a disconnects in the shape of the data as my plans change 
+# and having to change things in 2 places all the time - 
+# the migration and move to t3 stack and out of python entirely for db quereying (probably keep for insert)
+# is driven largely by this disconnected experience in development for me 
 }
 
-# funcs to deal with random q returns for testing - idk why this took me so long to make LMFAO - dumb cunt dumb cunt dumb cunt
-MAPS_NAMES = ['Ascent', 'Icebox', 'Fracture', 'Split', 'Breeze', 'Bind', 'Haven'] # pearl :^)
-AGENTS_NAMES = ['Astra', 'Breach', 'Brimstone', 'Chamber', 'Cypher', 
-                'Jett', 'Kay/O', 'Killjoy', 'Neon', 'Omen', 'Phoenix', 
-                'Raze', 'Reyna', 'Sage', 'Skye', 'Sova', 'Viper', 'Yoru']
-X_TARGETS_NAMES = ['k', 'd', 'a', 'kast', 'adr', 'acs', 'fb', 'fd']
-Y_TARGETS_NAMES = ['mapname', '']
-Y_COMP_TARGETS_NAMES = ['mapname', 'agent', 'team']
-COMP_PROCEEZE = ['ave', 'count']
 
 # adds up values that are integers // mostly a helper for sumNumbersFromDicts
 def sumValuesWithKey(key, dicts):
@@ -123,6 +92,7 @@ def SQLfromSplit(value, keyStr):
 
 
 def SQLfromQuereyRequirements(quereyReqs, side):
+    print(quereyReqs)
     
     sql_stmt = "SELECT * FROM player_stats_" + side + " WHERE "
     filterStr = ""
@@ -199,20 +169,28 @@ def processQuerey(querey):
     session = getSession()
     rows_as_dicts = getRowsAsDicts(session, SQL_Stmt)
     session.close()
-
+    pprint(querey)
     transformed_rows = doTransform(rows_as_dicts, querey['data_shape']) #average over, etc
 
     data_process_order = findProcessOrder(querey['data_shape']['group_targets'].split(', ')) # find correct index to use for dataset grouping
     dataset_target_index = data_process_order[querey['graph_shape']['dataset_group_by']]
+    
     order_by_target_index = data_process_order[querey['data_shape']['order_by']]
+    
     ordered_rows = SortRows(transformed_rows, False, order_by_target_index) # should order by the labels target value so a full size set can be mapped correctly
     grouped_rows = GroupRows(ordered_rows, dataset_target_index)
     
-    datasets = prepareDatasets(querey['graph_shape']['x'], 'mapname', grouped_rows)
+    datasets = prepareDatasets(querey['graph_shape']['x'], querey['graph_shape']['y'], grouped_rows)
     
     return {'data': datasets}
 
 
-if __name__ == '__main__':
-    processQuerey()
+# if __name__ == '__main__':
+#     processQuerey({'data_shape': {'group_targets': 'agent, mapname, team', 'order_by': 'team'},
+#  'graph_shape': {'dataset_group_by': 'mapname', 'x': 'acs', 'y': 'team'},
+#  'row_reqs': {'on_agent': '',
+#               'on_mapname': '',
+#               'on_player': '',
+#               'on_team': 'Paper Rex, OpTic Gaming, DRX, FURIA'},    
+#  'side': 'combined'})
     

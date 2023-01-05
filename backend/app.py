@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 from flask import request
 from flask_cors import CORS
-
+from pprint import pprint
 from stat_api_scripts.QuereyV2 import processQuerey
 app = Flask(__name__)
 CORS(app)
@@ -31,7 +31,7 @@ def returnXY(fields, data):
 def processQuereyFromClient():
     
     querey = request.get_json(force=True)["querey"]
-    print(querey)
+    pprint(querey)
     graph_data = processQuerey(querey)
     
     return jsonify(graph_data)

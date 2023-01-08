@@ -1,4 +1,4 @@
-import TestingGraph from "../graphing/TestingGraph"
+import TestingGraph from "./TestingGraph"
 import PopoutForm from "./PopoutForm"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"

@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react"
 import { set, useForm } from "react-hook-form";
-import Graph from "./Graph";
-import ComparativeQuerey from "./ComparativeQuerey";
-import RadarGraph from "./RadarGraph";
+import Graph from "../graphing/Graph";
+import ComparativeQuerey from "../graphing/ComparativeQuerey";
+import RadarGraph from "../graphing/RadarGraph";
 
 
 

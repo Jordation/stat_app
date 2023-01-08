@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react"
 
 import DefaultHead from '../components/defaultHead'
 
-import TestingGraph from "../components/graphing/TestingGraph";
+import TestingGraph from "../components/FullCustomGraph/TestingGraph";
 import PopoutForm from "../components/FullCustomGraph/PopoutForm";
 import FullCustomGraph from "../components/FullCustomGraph/FullCustomGraph";
 const options = {

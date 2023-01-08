@@ -1,43 +1,28 @@
-# current to-do / goals
-- [ ] Multiple datasets
-	- User should be able to specify n queries, configure each and receieve a single graph with all unique datasets mapped to it (i.e. stacked/grouped bar chart)
-- [ ] Get some external feedback, need to reach out to more analysts/coaches 
-- [ ] Better queries 
-	- Just need to do more testing and figure out what feels good 
-- [ ] How the fuck do i use css
-- [ ] Better component structure
-	- My knowledge is growing so quickly as I learn these tools and I am in a constant state of wanting to overhaul, my components don't *fit* together very well and I want to re-structure them. 
-	- Figure out what needs to be grouped with what and who does NOT need to be grouped 
-		- Who needs props from who
-	
+# Create T3 App
 
+This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
-## dev diary entries !
-gonna try do this consistently for a bit to help keep track of my progress/development :)
-1. https://youtu.be/Q2DdABjnEaA
-2. https://youtu.be/76l92mEsafI
+## What's next? How do I make an app with this?
 
+We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
 
+If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
 
-## tools i have learned for and am using for this project
+- [Next.js](https://nextjs.org)
+- [NextAuth.js](https://next-auth.js.org)
+- [Prisma](https://prisma.io)
+- [Tailwind CSS](https://tailwindcss.com)
+- [tRPC](https://trpc.io)
 
-- python
-	- beautiful soup - web scraper
-	- sqlalchemy - db queries and schema
-	- pandas - not settled on how or where I want to use pandas, seems mostly useful to me when dealing with isolated data (match input), otherwise I'll mostly be harvesting an event of data at a time and using SQLA to inser that into my SQLite DB appropriately 
-- flask
-- js
-	- plotly
-	-chartJS might be replacing plotly as it doesn't play nice with next.js which I am now using
-	- react	
-- tailwind
+## Learn More
 
+To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
 
-## things i want to try
+- [Documentation](https://create.t3.gg/)
+- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
 
-- svelte
-	- svelte graphing package 
-- [x] not using CRA 
-- typescript
+You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
 
+## How do I deploy this?
 
+Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.

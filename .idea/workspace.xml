@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5d4a5a46-ba03-4e21-b8de-b8f0ba58b509" name="Changes" comment="-CRA +next.js">
+      <change afterPath="$PROJECT_DIR$/backend/static/myScripts/the_database/test_db.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/test_db.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/static/myScripts/QuereyDB.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/static/myScripts/QuereyDB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/static/myScripts/SQLA_Schema.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/static/myScripts/SQLA_Schema.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/static/myScripts/db/test_db.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pages/components/quereyBox.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pages/components/quereyBox.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pages/custom/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pages/custom/index.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="Python Script" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="29a2d30d-a3e9-4205-82c4-6155040050ef" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2GnTGzhcXzsEvxFJEQusfFeGujb" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;18.12.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;18.11.12&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/stat_app/frontend/pages/components&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\PyCharm 2022.2.2\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\stat_app\frontend\pages\components" />
+      <recent name="D:\stat_app\frontend\pages" />
+      <recent name="D:\stat_app\frontend\public" />
+      <recent name="D:\stat_app\backend\static\scripts\queryTesting" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\stat_app\frontend\public" />
+      <recent name="D:\stat_app\frontend\src\pages\custom-graphs" />
+      <recent name="D:\stat_app" />
+      <recent name="D:\stat_app\backend\static\scripts" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.QuereyDB">
+    <configuration name="QuereyDB" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="stat_app" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend/static/myScripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backend/static/myScripts/QuereyDB.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="SQLA_Schema" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="stat_app" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend/static/myScripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backend/static/myScripts/SQLA_Schema.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Token_To_SQLA" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="stat_app" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend/static/myScripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backend/static/myScripts/Token_To_SQLA.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="quicktest" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="stat_app" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend/static/myScripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backend/static/myScripts/quicktest.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="scraper_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="stat_app" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend/static/myScripts/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backend/static/myScripts/tests/scraper_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.QuereyDB" />
+        <item itemvalue="Python.Token_To_SQLA" />
+        <item itemvalue="Python.scraper_test" />
+        <item itemvalue="Python.quicktest" />
+        <item itemvalue="Python.SQLA_Schema" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5d4a5a46-ba03-4e21-b8de-b8f0ba58b509" name="Changes" comment="" />
+      <created>1667023256567</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667023256567</updated>
+      <workItem from="1667023257969" duration="924000" />
+      <workItem from="1667024201976" duration="434000" />
+      <workItem from="1667106285644" duration="8436000" />
+      <workItem from="1667121172331" duration="47000" />
+      <workItem from="1667170874957" duration="2873000" />
+      <workItem from="1667174575421" duration="1183000" />
+      <workItem from="1667175796513" duration="244000" />
+      <workItem from="1667176053765" duration="3855000" />
+      <workItem from="1667190969487" duration="700000" />
+      <workItem from="1667204734439" duration="2635000" />
+      <workItem from="1667214583713" duration="2403000" />
+      <workItem from="1667217207627" duration="465000" />
+      <workItem from="1667271142584" duration="552000" />
+      <workItem from="1667283128696" duration="1659000" />
+      <workItem from="1667285040368" duration="137000" />
+      <workItem from="1667285953191" duration="1648000" />
+      <workItem from="1667460035735" duration="157000" />
+      <workItem from="1667535995711" duration="2310000" />
+      <workItem from="1667563371576" duration="2152000" />
+      <workItem from="1667617192357" duration="3425000" />
+      <workItem from="1667624307017" duration="1027000" />
+      <workItem from="1667693848082" duration="1438000" />
+      <workItem from="1667700603443" duration="1069000" />
+      <workItem from="1667702408262" duration="205000" />
+      <workItem from="1667708693135" duration="2429000" />
+      <workItem from="1667790933314" duration="1338000" />
+      <workItem from="1667969799516" duration="1097000" />
+      <workItem from="1668563253217" duration="2072000" />
+      <workItem from="1668573765226" duration="375000" />
+      <workItem from="1668814368383" duration="2928000" />
+      <workItem from="1668904558671" duration="6770000" />
+      <workItem from="1668934978112" duration="3249000" />
+      <workItem from="1668984900198" duration="5918000" />
+      <workItem from="1669000841510" duration="3632000" />
+      <workItem from="1669004549604" duration="10000" />
+      <workItem from="1669016792842" duration="117000" />
+      <workItem from="1669196424785" duration="25000" />
+      <workItem from="1669200734640" duration="4896000" />
+      <workItem from="1669205970984" duration="1000" />
+      <workItem from="1669336335988" duration="4044000" />
+      <workItem from="1669344726515" duration="3225000" />
+      <workItem from="1669415757759" duration="11232000" />
+      <workItem from="1669428039402" duration="1376000" />
+      <workItem from="1669513682696" duration="10489000" />
+      <workItem from="1669528192360" duration="994000" />
+      <workItem from="1669588657539" duration="595000" />
+      <workItem from="1669634484282" duration="2668000" />
+      <workItem from="1669940988961" duration="3501000" />
+      <workItem from="1670022504567" duration="5401000" />
+      <workItem from="1670043671598" duration="2000" />
+      <workItem from="1670109160898" duration="620000" />
+      <workItem from="1670109794302" duration="9498000" />
+      <workItem from="1670199113020" duration="9735000" />
+      <workItem from="1670387581359" duration="672000" />
+      <workItem from="1670541220992" duration="595000" />
+      <workItem from="1670629896178" duration="15262000" />
+      <workItem from="1670656740896" duration="9000" />
+      <workItem from="1670662415004" duration="1250000" />
+      <workItem from="1670666458058" duration="2541000" />
+      <workItem from="1671025351205" duration="225000" />
+      <workItem from="1671107292508" duration="319000" />
+    </task>
+    <task id="LOCAL-00001" summary="latest">
+      <created>1668573828490</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1668573828490</updated>
+    </task>
+    <task id="LOCAL-00002" summary="latest">
+      <created>1668991208409</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1668991208409</updated>
+    </task>
+    <task id="LOCAL-00003" summary="latest">
+      <created>1669016803393</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1669016803393</updated>
+    </task>
+    <task id="LOCAL-00004" summary="IT WORKSSSS">
+      <created>1669205610128</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1669205610128</updated>
+    </task>
+    <task id="LOCAL-00005" summary="automated scrape -&gt; insert into db">
+      <created>1669528805712</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1669528805712</updated>
+    </task>
+    <task id="LOCAL-00006" summary="initial logic for querey requests">
+      <created>1670119398477</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1670119398477</updated>
+    </task>
+    <task id="LOCAL-00007" summary="updated schema, scraped a lot of data">
+      <created>1670208986429</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1670208986429</updated>
+    </task>
+    <task id="LOCAL-00008" summary="-CRA +next.js">
+      <created>1670645412267</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1670645412267</updated>
+    </task>
+    <task id="LOCAL-00009" summary="-CRA +next.js">
+      <created>1670645430043</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1670645430043</updated>
+    </task>
+    <task id="LOCAL-00010" summary="-CRA +next.js">
+      <created>1670645492212</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1670645492212</updated>
+    </task>
+    <task id="LOCAL-00011" summary="-CRA +next.js">
+      <created>1670645655063</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1670645655063</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/frontend" />
+    </ignored-roots>
+    <MESSAGE value="latest" />
+    <MESSAGE value="IT WORKSSSS" />
+    <MESSAGE value="automated scrape -&gt; insert into db" />
+    <MESSAGE value="initial logic for querey requests" />
+    <MESSAGE value="updated schema, scraped a lot of data" />
+    <MESSAGE value="-CRA +next.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="-CRA +next.js" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="data.maps[0]" />
+        <watch expression="t1a" />
+        <watch expression="other" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/stat_app$QuereyDB.coverage" NAME="QuereyDB Coverage Results" MODIFIED="1671107350529" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/static/myScripts" />
+    <SUITE FILE_PATH="coverage/stat_app$Token_To_SQLA.coverage" NAME="Token_To_SQLA Coverage Results" MODIFIED="1670208937282" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/static/myScripts" />
+    <SUITE FILE_PATH="coverage/stat_app$quicktest.coverage" NAME="quicktest Coverage Results" MODIFIED="1669516341044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/static/myScripts" />
+    <SUITE FILE_PATH="coverage/stat_app$Format_MatchOBJ.coverage" NAME="Format_MatchOBJ Coverage Results" MODIFIED="1668990964218" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/static/myScripts" />
+    <SUITE FILE_PATH="coverage/stat_app$match_unpacker.coverage" NAME="match_unpacker Coverage Results" MODIFIED="1668908063908" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/static/myScripts" />
+    <SUITE FILE_PATH="coverage/stat_app$match_object.coverage" NAME="match_object Coverage Results" MODIFIED="1667620548262" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/static/myScripts" />
+    <SUITE FILE_PATH="coverage/stat_app$scraper_test.coverage" NAME="scraper_test Coverage Results" MODIFIED="1670206814510" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/static/myScripts/tests" />
+    <SUITE FILE_PATH="coverage/stat_app$SQLA_Schema.coverage" NAME="SQLA_Schema Coverage Results" MODIFIED="1670205267196" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/static/myScripts" />
+  </component>
+</project>
